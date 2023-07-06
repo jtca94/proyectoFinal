@@ -1,12 +1,11 @@
-/* eslint-disable react/no-unknown-property */
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import {BrowserRouter} from "react-router-dom";
-import { themeProvider} from "@mui/material";
+import {ThemeProvider, createTheme} from "@mui/material/styles";
 
-const theme = themeProvider({
+const theme = createTheme({
   palette: {
     primary: {
       main: "#001d3d",
@@ -18,23 +17,19 @@ const theme = themeProvider({
       darkBlue: "#000814",
       blue: "#003566",
       yellow: "#ffd60a",
-    }
+    },
   },
   typography: {
-    fontFamily: "Roboto",
-    fontWeightLight: 300,
-    fontWeightRegular: 400,
-    fontWeightMedium: 500,
-    fontWeightBold: 700,
-  }
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+  },
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <themeProvider theme={theme}>
-      <App />
-      </themeProvider>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
