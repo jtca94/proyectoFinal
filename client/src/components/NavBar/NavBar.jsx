@@ -14,10 +14,16 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import {NavLink, Link} from "react-router-dom";
 import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
 
 const drawerWidth = 240;
-const navItems = ["Catálogo", "Contácto", "Iniciar Sesión", "Pedidos"];
+const navItems = [
+  {name: "Productos", path: "/productos"},
+  {name: "contacto", path: "/contacto"},
+  {name: "Iniciar Sesión", path: "/login"},
+  {name: "Mis Compras", path: "/pedidos"},
+];
 
 function NavBar(props) {
   const {window} = props;
@@ -36,9 +42,17 @@ function NavBar(props) {
       <Divider />
       <List>
         {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
+          <ListItem key={item.name} disablePadding>
             <ListItemButton sx={{textAlign: "center"}}>
-              <ListItemText primary={item} />
+              <NavLink
+                className={({isActive}) =>
+                  isActive ? "active" : "inactiveMobile"
+                }
+                style={{textDecoration: "none"}}
+                to={item.path}
+              >
+                <ListItemText primary={item.name} />
+              </NavLink>
             </ListItemButton>
           </ListItem>
         ))}
@@ -50,7 +64,7 @@ function NavBar(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{display: "flex", mb: {xs: 7, sm: 8 }}}>
+    <Box sx={{display: "flex", mb: {xs: 7, sm: 8}}}>
       <CssBaseline />
       <AppBar component="nav">
         <Toolbar>
@@ -63,18 +77,32 @@ function NavBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <VideogameAssetIcon fontSize="large" sx={{mr: 3}} />
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{flexGrow: 1, display: {sm: "block"}}}
-          >
-            LA TIENDITA
-          </Typography>
+
+          <Box sx={{display: "flex", flexGrow: 1}}>
+            <VideogameAssetIcon fontSize="large" sx={{mr: 3}} />
+            <Link to={"/"}
+                style={{textDecoration: "none"}}
+            >
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{display: {sm: "block"}, textDecoration: "none"}}
+              >
+                LA TIENDITA
+              </Typography>
+            </Link>
+          </Box>
+
           <Box sx={{display: {xs: "none", md: "block"}}}>
             {navItems.map((item) => (
-              <Button key={item} sx={{color: "#fff", px: 3}}>
-                {item}
+              <Button key={item.name} sx={{color: "#fff", px: 3}}>
+                <NavLink
+                  className={({isActive}) => (isActive ? "active" : "inactive")}
+                  style={{textDecoration: "none"}}
+                  to={item.path}
+                >
+                  {item.name}
+                </NavLink>
               </Button>
             ))}
           </Box>
