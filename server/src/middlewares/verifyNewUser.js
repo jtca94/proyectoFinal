@@ -1,7 +1,7 @@
 export const verifyNewUser = async (req, res, next) => {
     try {
-        const { userName, firstName, lastName, email, passwordHashed, address } = req.body;
-        if (!userName || !firstName || !lastName || !email || !passwordHashed || !address) {
+        const { userName, firstName, lastName, email, password, address } = req.body;
+        if (!userName || !firstName || !lastName || !email || !password || !address) {
             throw new Error("Missing fields");
         }
         next();
