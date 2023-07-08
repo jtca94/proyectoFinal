@@ -1,6 +1,10 @@
 import {Button, Container, Grid, Typography} from "@mui/material";
+import {Routes, Route} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import InicioDash from "./Inicio/InicioDash";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   return (
     <Container maxWidth="lg" sx={{my: 10}}>
       <Typography component="h1" variant="h3" sx={{mb: 3}}>
@@ -20,6 +24,7 @@ const Dashboard = () => {
             color="secondary"
             variant="contained"
             sx={{m: 2, width: "80%"}}
+            onClick={() => navigate("myprod")}
           >
             Mis Productos
           </Button>
@@ -27,6 +32,7 @@ const Dashboard = () => {
             color="secondary"
             variant="contained"
             sx={{m: 2, width: "80%"}}
+            onClick={() => navigate("mycart")}
           >
             Mis Compras
           </Button>
@@ -34,19 +40,19 @@ const Dashboard = () => {
             color="secondary"
             variant="contained"
             sx={{m: 2, width: "80%"}}
+            onClick={() => navigate("sellprod")}
           >
             Vender Producto
           </Button>
         </Grid>
         <Grid item xs={12} md={8}>
           <Container>
-            <Typography
-              component="h2"
-              variant="h4"
-              sx={{mb: 3, textAlign: "center"}}
-            >
-              Mis Productos
-            </Typography>
+            <Routes>
+              <Route path="/" element={<InicioDash/>} />
+              <Route path="/myprod" element={<h1>Mis Productos</h1>} />
+              <Route path="/mycart" element={<h1>Mis Compras</h1>} />
+              <Route path="/sellprod" element={<h1>Vender Producto</h1>} />
+            </Routes>
           </Container>
         </Grid>
       </Grid>

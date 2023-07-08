@@ -23,7 +23,7 @@ const App = () => {
         {/* este si es que no se ha logeado el boton estará como disabled */}
         <Route path="/pedidos" element={<Carro/>} />
         {/* para entrar al dashboard no hay boton aun, hay que ingresar manualmente /dashboard */}
-        <Route path="/dashboard" element={<Dashboard/>} />
+        <Route path="/dashboard//*" element={<Dashboard/>} />
       </Routes>
       <Footer />
     </>
