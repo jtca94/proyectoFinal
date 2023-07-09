@@ -1,4 +1,4 @@
-import { validateUser } from '../models/PostModel/createUser/validateUser.js';
+import { validateUser } from '../models/UserModels/createUser/validateUser.js';
 import bcrypt from 'bcryptjs';
 export const verifyCredentials = async (req, res, next) => {
     try {
@@ -6,11 +6,13 @@ export const verifyCredentials = async (req, res, next) => {
         if (!email || !password) {
             throw new Error("Missing credentials");
         }
-        const passwordHashed = await validateUser(email);
-        const validatedPassword = await bcrypt.compare(password, passwordHashed);
+        const user = await validateUser(email);
+        const validatedPassword = await bcrypt.compare(password, user.password);
         if (!validatedPassword) {
             throw new Error("Invalid password or email");
         }
+        req.body.userName = user.username;
+        req.body.id = user.id;
         next();
     }
     catch (error) {

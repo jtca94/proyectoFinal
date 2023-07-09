@@ -1,4 +1,5 @@
-import {Container, Grid, Typography, TextField, Button} from "@mui/material";
+import {Container, Grid, Typography, TextField, Button, Box} from "@mui/material";
+import signImg from "../../images/sign.svg"
 
 const Register = () => {
   return (
@@ -6,7 +7,15 @@ const Register = () => {
       <Typography variant="h3" fontWeight={500} sx={{textAlign: "center"}}>
         Crea tu Usuario
       </Typography>
-      <Grid container sx={{justifyContent: "center"}}>
+      <Grid container spacing={5}>
+        <Grid item xs={12} md={6}>
+          <Box
+            component="img"
+            src={signImg}
+            alt="Sign in"
+            sx={{width: "100%", height: "100%", mt: {xs: 5, md: 0}}}
+          />
+        </Grid>
         <Grid item xs={12} md={6}>
           <form>
             <TextField

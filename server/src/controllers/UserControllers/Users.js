@@ -1,4 +1,4 @@
-import {createUser} from "../../models/PostModel/createUser/createUser.js";
+import {createUser} from "../../models/UserModels/createUser/createUser.js";
 import jwt from "jsonwebtoken";
 
 // verificar que el usuario este disponible
@@ -17,9 +17,9 @@ const newUser = async (req, res) => {
 
 const LoginUser = async (req, res) => {
   try {
-    const {userName} = req.body;
+    const {userName, id} = req.body;
     const token = jwt.sign({userName}, process.env.SECRET_KEY, {expiresIn: "2h"});
-    return res.status(200).json({ok: true, message: "User logged in", token});
+    return res.status(200).json({ok: true, message: "User logged in", token, userName, id});
   } catch (error) {
     return res.status(500).json({ok: false, message: error.message});
   }
