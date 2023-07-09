@@ -17,6 +17,7 @@ const theme = createTheme({
       darkBlue: "#000814",
       blue: "#003566",
       yellow: "#ffd60a",
+      purple: "#3d0079"
     },
   },
   typography: {
