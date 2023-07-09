@@ -4,6 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 import {BrowserRouter} from "react-router-dom";
 import {ThemeProvider, createTheme} from "@mui/material/styles";
+import {AuthProvider} from "./context/AuthContext.jsx";
 
 const theme = createTheme({
   palette: {
@@ -17,20 +18,23 @@ const theme = createTheme({
       darkBlue: "#000814",
       blue: "#003566",
       yellow: "#ffd60a",
-      purple: "#3d0079"
+      purple: "#3d0079",
     },
   },
   typography: {
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+    fontFamily:
+      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
   },
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
+      <AuthProvider>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
