@@ -50,7 +50,7 @@ const Login = () => {
           localStorage.setItem("token", data.token);
           localStorage.setItem("user", data.id);
           // Save token and user in context
-          login(data.token, data.id);
+          login(data.token, data.id, data.userName);
           // Redirect to dashboard
           setTimeout(() => {
             navigate("/dashboard");

@@ -51,11 +51,11 @@ function NavBar(props) {
       <List>
         {user
           ? navItemsLogged.map((item) => (
-              <ListItem key={item.name} sx={{my: 2}}>
+              <ListItem key={item.name}>
                 <ListItemButton>
                   <NavLink
                     className={({isActive}) =>
-                      isActive ? "active" : "inactive"
+                      isActive ? "activeMobile" : "inactiveMobile"
                     }
                     style={{textDecoration: "none"}}
                     to={item.path}
@@ -66,11 +66,11 @@ function NavBar(props) {
               </ListItem>
             ))
           : navItems.map((item) => (
-              <ListItem key={item.name} sx={{my: 2}}>
+              <ListItem key={item.name}>
                 <ListItemButton>
                   <NavLink
                     className={({isActive}) =>
-                      isActive ? "active" : "inactive"
+                      isActive ? "activeMobile" : "inactiveMobile"
                     }
                     style={{textDecoration: "none"}}
                     to={item.path}

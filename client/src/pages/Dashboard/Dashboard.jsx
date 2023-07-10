@@ -11,14 +11,14 @@ import {useContext, useState} from "react";
 import {AuthContext} from "../../context/AuthContext";
 
 const Dashboard = () => {
-  const {logout} = useContext(AuthContext);
+  const {logout, userName} = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   return (
     <Container maxWidth="lg" sx={{my: 10}}>
       <Box sx={{display: {xs: "block", sm: "flex"}, alignItems: "center"}}>
         <Typography component="h1" variant="h3" sx={{mb: 3, flexGrow: 1}}>
-          Dashboard
+          Buen día {userName}
         </Typography>
         <LoadingButton
           loading={loading}
@@ -28,8 +28,8 @@ const Dashboard = () => {
           startIcon={<LogoutIcon />}
           onClick={() => {
             setLoading(true);
-            logout();
             setTimeout(() => {
+              logout();
               setLoading(false);
               navigate("/");
             }, 1500);
