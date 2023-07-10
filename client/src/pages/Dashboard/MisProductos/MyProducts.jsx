@@ -25,7 +25,6 @@ const MyProducts = () => {
         );
         const data = await res.json();
         setProducts(data.data);
-        console.log(data)
       } catch (error) {
         console.log(error);
       }

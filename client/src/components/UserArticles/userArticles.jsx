@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const UserArticles = ({name, price, image, category, stock}) => {
   return (
     <Grid container sx={{mt: 3}}>
-      <Grid item xs={12} sm={3}>
+      <Grid item xs={12} sm={3} sx={{display: "flex", justifyContent: {xs: "center", sm: "normal"}}}>
         <Box
           component="img"
           src={image}
@@ -60,14 +60,14 @@ const UserArticles = ({name, price, image, category, stock}) => {
           item
           xs={6}
           sm={12}
-          sx={{display: "flex", justifyContent: "center"}}
+          sx={{display: "flex", justifyContent: {xs: "center", sm: "normal"}}}
         >
           <Typography sx={{fontSize: "24px"}} variant="h5">
             {/* precio debe ir en formato  $1.000 */}
-            {`$ ${price.toLocaleString("de-DE").replace(/,/g, ".")}`}
+            {`$ ${parseInt(price).toLocaleString("es-CL")}`}
           </Typography>
         </Grid>
-        <Grid item xs={6} sm={12} sx={{display: "block", me: "auto"}}>
+        <Grid item xs={6} sm={12} sx={{display: {xs: "flex", sm: "block"}, justifyContent: "center"}}>
           <Button variant="outlined" size="small" color="error">
             Eliminar
           </Button>

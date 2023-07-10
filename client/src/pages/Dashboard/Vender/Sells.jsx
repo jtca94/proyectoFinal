@@ -67,7 +67,7 @@ const Sells = () => {
         anchorOrigin={{vertical: "bottom", horizontal: "center"}}
         size="large"
       >
-        <Alert severity="success">Usuario creado con éxito</Alert>
+        <Alert severity="success">Artículo creado con éxito</Alert>
       </Snackbar>
       <Typography align="center" component="h1" variant="h3" sx={{mb: 3}}>
         Sube un Artículo
