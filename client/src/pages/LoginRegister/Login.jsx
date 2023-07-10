@@ -9,16 +9,19 @@ import {
   Typography,
 } from "@mui/material";
 import {Link} from "react-router-dom";
-import {useState} from "react";
+import {useState, useContext} from "react";
 import {useFormik} from "formik";
 import {useNavigate} from "react-router-dom";
 import {loginValidationSchema} from "../../helpers/validationSchemas";
+import {AuthContext} from "../../context/AuthContext";
 
 const Login = () => {
+  const {login} = useContext(AuthContext);
   const navigate = useNavigate();
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -27,28 +30,45 @@ const Login = () => {
     },
     validationSchema: loginValidationSchema,
     onSubmit: async (values) => {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
-      const data = await res.json();
-      if (data.ok === true) {
-        console.log(data);
-        setError(false);
-        setMessage("");
-        setOpen(true);
-        formik.resetForm();
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 1000);
-      } else {
-        console.log(data);
+      try {
+        setLoading(true);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        });
+        const data = await res.json();
+        if (data.ok === true) {
+          console.log(data);
+          setError(false);
+          setMessage("");
+          setOpen(true);
+          formik.resetForm();
+          // Save token and user in localStorage
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("user", data.id);
+          // Save token and user in context
+          login(data.token, data.id);
+          // Redirect to dashboard
+          setTimeout(() => {
+            navigate("/dashboard");
+          }, 1500);
+        } else {
+          console.log(data);
+          setError(true);
+          setMessage(data.message);
+          formik.resetForm();
+        }
+      } catch (error) {
+        console.log(error);
         setError(true);
-        setMessage(data.message);
-        formik.resetForm();
+        setMessage("Error de conexión");
+      } finally {
+        setTimeout(() => {
+          setLoading(false);
+        }, 1500);
       }
     },
   });
@@ -95,6 +115,7 @@ const Login = () => {
               ¿No tienes una cuenta? <Link to="/register">Regístrate</Link>
             </Typography>
             <Button
+              disabled={loading}
               color="secondary"
               variant="contained"
               fullWidth
@@ -109,7 +130,7 @@ const Login = () => {
       </Grid>
       <Snackbar
         open={open}
-        autoHideDuration={1000}
+        autoHideDuration={1500}
         onClose={() => setOpen(false)}
         anchorOrigin={{vertical: "top", horizontal: "center"}}
         size="large"
