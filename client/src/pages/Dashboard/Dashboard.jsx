@@ -1,18 +1,43 @@
-import {Button, Container, Grid, Typography} from "@mui/material";
+import {Box, Button, Container, Grid, Typography} from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 import {Routes, Route} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import InicioDash from "./Inicio/InicioDash";
 import MyProducts from "./MisProductos/MyProducts";
 import Shopping from "./Compras/Shopping";
 import Sells from "./Vender/Sells";
+import LogoutIcon from "@mui/icons-material/Logout";
+import {useContext, useState} from "react";
+import {AuthContext} from "../../context/AuthContext";
 
 const Dashboard = () => {
+  const {logout} = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   return (
     <Container maxWidth="lg" sx={{my: 10}}>
-      <Typography component="h1" variant="h3" sx={{mb: 3}}>
-        Dashboard
-      </Typography>
+      <Box sx={{display: {xs: "block", sm: "flex"}, alignItems: "center"}}>
+        <Typography component="h1" variant="h3" sx={{mb: 3, flexGrow: 1}}>
+          Dashboard
+        </Typography>
+        <LoadingButton
+          loading={loading}
+          variant="contained"
+          color="error"
+          sx={{mb: {xs: 4, sm: 2}}}
+          startIcon={<LogoutIcon />}
+          onClick={() => {
+            setLoading(true);
+            logout();
+            setTimeout(() => {
+              setLoading(false);
+              navigate("/");
+            }, 1500);
+          }}
+        >
+          Cerrar Sesión
+        </LoadingButton>
+      </Box>
       <Grid
         container
         sx={{backgroundColor: "lightgray", borderRadius: "15px", p: 3}}

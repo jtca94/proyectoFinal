@@ -14,8 +14,14 @@ const login = (token, user) => {
   setToken(token);
   setUser(user);
 };
+const logout = () => {
+  setToken(null);
+  setUser(null);
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+};
 
-  return <AuthContext.Provider value={{login, token, user}}>
+  return <AuthContext.Provider value={{login, logout, token, user}}>
     {children}
     </AuthContext.Provider>;
 };

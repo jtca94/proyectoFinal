@@ -6,17 +6,24 @@ import {
   TextField,
   Container,
   Autocomplete,
+  Snackbar,
+  Alert
 } from "@mui/material";
 import {InputAdornment} from "@mui/material";
 import {newProductValidationSchema} from "../../../helpers/validationSchemas";
 import {useFormik} from "formik";
 import {useNavigate} from "react-router-dom";
 import {gameCategories} from "../../../utils/gameCategories";
-
+import {useContext, useState} from "react";
+import {AuthContext} from "../../../context/AuthContext";
+// recordar que en el backend la imagen sigue siendo obligatoria
 const Sells = () => {
+  const {token, user} = useContext(AuthContext);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
+      userId: user,
       name: "",
       price: "",
       category: "",
@@ -25,12 +32,43 @@ const Sells = () => {
       description: "",
     },
     validationSchema: newProductValidationSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/products`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(values),
+        });
+        const data = await res.json();
+        if (res.ok === true) {
+          formik.resetForm();
+          setOpen(true);
+          setTimeout(() => {
+          setOpen(false);
+          navigate("/dashboard");
+          }, 1500);
+        } else {
+          throw new Error(data.message);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
   return (
     <>
+    <Snackbar
+        open={open}
+        autoHideDuration={1500}
+        sx={{mb: 3}}
+        anchorOrigin={{vertical: "bottom", horizontal: "center"}}
+        size="large"
+      >
+        <Alert severity="success">Usuario creado con éxito</Alert>
+      </Snackbar>
       <Typography align="center" component="h1" variant="h3" sx={{mb: 3}}>
         Sube un Artículo
       </Typography>
@@ -189,7 +227,11 @@ const Sells = () => {
             disabled={!(formik.isValid && formik.dirty)}
             variant="contained"
             color="success"
-            sx={{ml: 2}}
+            sx={{
+              ml: {xs: 0, sm: 3},
+              mt: {xs: 2, sm: 0},
+              display: {xs: "block", sm: "inline-block"},
+            }}
             onClick={formik.handleSubmit}
           >
             Publicar artículo
