@@ -35,3 +35,16 @@ export const createUserValidationSchema = yup.object({
       .required('El domicilio es requerido')
       .min(5, 'El domicilio debe tener al menos 5 caracteres'),
     });
+
+export const loginValidationSchema = yup.object({
+    email: yup
+        .string('Ingresa tu email')
+        .email('Ingresa un email válido')
+        .required('El email es requerido'),
+    password: yup
+        .string('Ingresa tu contraseña')
+        .required('La contraseña es requerida')
+        .min(8, 'La contraseña debe tener al menos 8 caracteres')
+        .max(16, 'La contraseña debe tener como máximo 16 caracteres'),
+    });
+    

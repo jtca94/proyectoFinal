@@ -10,7 +10,7 @@ import { verifyToken } from "../middlewares/verifyToken.js";
 const routes = Router();
 
 //POST ROUTES
-routes.post('/user', verifyNewUser, passwordHash, userControllers.newUser);
+routes.post('/register', verifyNewUser, passwordHash, userControllers.newUser);
 routes.post('/login', verifyCredentials, userControllers.LoginUser);
 routes.post('/products', verifyNewProduct, productControllers.createProduct);
 //GET ROUTES

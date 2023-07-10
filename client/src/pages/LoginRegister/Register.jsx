@@ -5,33 +5,94 @@ import {
   TextField,
   Button,
   Box,
+  Alert,
+  Snackbar,
 } from "@mui/material";
+import {useState} from "react";
 import signImg from "../../images/sign.svg";
-import { useFormik } from 'formik';
-import { createUserValidationSchema } from "../../helpers/validationSchemas";
-
-
+import {useFormik} from "formik";
+import {useNavigate} from "react-router-dom";
+import {createUserValidationSchema} from "../../helpers/validationSchemas";
 
 const Register = () => {
- 
+  const [open, setOpen] = useState(false);
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+    setError(false);
+    setMessage("");
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleError = () => {
+    setError(true);
+  };
   const formik = useFormik({
     initialValues: {
-      userName: '',
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      address: '',
+      userName: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      address: "",
     },
     validationSchema: createUserValidationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+      const data = await res.json();
+      if (data.ok === true) {
+        console.log(data);
+        handleOpen();
+        setTimeout(() => {
+          navigate("/login");
+        }, 1500);
+      }
+      else {
+        console.log(data);
+        setMessage(data.message);
+        handleError();
+      }
     },
   });
   return (
     <Container maxWidth="lg" sx={{my: 10}}>
-      <Typography variant="h3" fontWeight={500} sx={{textAlign: "center"}}>
+      <Snackbar
+        open={error}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{vertical: "bottom", horizontal: "center"}}
+        size="large"
+      >
+        <Alert severity="error">{message}</Alert>
+      </Snackbar>
+      <Snackbar
+        open={open}
+        autoHideDuration={1000}
+        onClose={handleClose}
+        anchorOrigin={{vertical: "bottom", horizontal: "center"}}
+        size="large"
+      >
+        <Alert severity="success">Usuario creado con éxito</Alert>
+      </Snackbar>
+      <Typography
+        variant="h3"
+        color="custom.purple"
+        fontWeight={500}
+        sx={{textAlign: "center"}}
+      >
         Crea tu Usuario
       </Typography>
       <Grid container spacing={5}>
@@ -70,7 +131,9 @@ const Register = () => {
               value={formik.values.firstName}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.firstName && Boolean(formik.errors.firstName)}
+              error={
+                formik.touched.firstName && Boolean(formik.errors.firstName)
+              }
               helperText={formik.touched.firstName && formik.errors.firstName}
             />
             <TextField
@@ -117,7 +180,7 @@ const Register = () => {
               helperText={formik.touched.password && formik.errors.password}
             />
             <TextField
-            name="confirmPassword"
+              name="confirmPassword"
               fullWidth
               type="password"
               label="Repite tu contraseña"
@@ -127,8 +190,13 @@ const Register = () => {
               value={formik.values.confirmPassword}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-              helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+              error={
+                formik.touched.confirmPassword &&
+                Boolean(formik.errors.confirmPassword)
+              }
+              helperText={
+                formik.touched.confirmPassword && formik.errors.confirmPassword
+              }
             />
             <TextField
               name="address"
@@ -142,7 +210,7 @@ const Register = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={formik.touched.address && Boolean(formik.errors.address)}
-              helperText={formik.touched.address && formik.errors.address}  
+              helperText={formik.touched.address && formik.errors.address}
             />
             <Button
               color="secondary"
