@@ -24,12 +24,12 @@ const navItems = [
   {name: "Inicio", path: "/"},
   {name: "Iniciar Sesión", path: "/login"},
   {name: "Productos", path: "/productos"},
-  {name: "contacto", path: "/contacto"},
+  {name: "Contacto", path: "/contacto"},
 ];
 const navItemsLogged = [
   {name: "Inicio", path: "/"},
   {name: "Productos", path: "/productos"},
-  {name: "contacto", path: "/contacto"},
+  {name: "Contacto", path: "/contacto"},
   {name: "Mi Perfil", path: "/dashboard"},
   {name: "Carrito", path: "/pedidos"},
 ];
@@ -57,7 +57,6 @@ function NavBar(props) {
                     className={({isActive}) =>
                       isActive ? "activeMobile" : "inactiveMobile"
                     }
-                    style={{textDecoration: "none"}}
                     to={item.path}
                   >
                     <ListItemText primary={item.name} />
@@ -72,7 +71,6 @@ function NavBar(props) {
                     className={({isActive}) =>
                       isActive ? "activeMobile" : "inactiveMobile"
                     }
-                    style={{textDecoration: "none"}}
                     to={item.path}
                   >
                     <ListItemText primary={item.name} />
@@ -123,7 +121,6 @@ function NavBar(props) {
                       className={({isActive}) =>
                         isActive ? "active" : "inactive"
                       }
-                      style={{textDecoration: "none"}}
                       to={item.path}
                     >
                       {item.name}
@@ -136,7 +133,6 @@ function NavBar(props) {
                       className={({isActive}) =>
                         isActive ? "active" : "inactive"
                       }
-                      style={{textDecoration: "none"}}
                       to={item.path}
                     >
                       {item.name}

@@ -41,7 +41,6 @@ const Login = () => {
         });
         const data = await res.json();
         if (data.ok === true) {
-          console.log(data);
           setError(false);
           setMessage("");
           setOpen(true);
@@ -49,10 +48,11 @@ const Login = () => {
           // Save token and user in localStorage
           localStorage.setItem("token", data.token);
           localStorage.setItem("user", data.id);
+          localStorage.setItem("userName", data.userName);
           // Save token and user in context
-          login(data.token, data.id, data.userName);
           // Redirect to dashboard
           setTimeout(() => {
+            login(data.token, data.id, data.userName);
             navigate("/dashboard");
           }, 1500);
         } else {

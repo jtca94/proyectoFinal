@@ -5,11 +5,12 @@ import PropTypes from "prop-types";
 export const AuthContext = createContext();
 const initialToken = localStorage.getItem("token") || null;
 const initialUser = localStorage.getItem("user") || null;
+const initialUserName = localStorage.getItem("userName") || null;
 
 export const AuthProvider = ({children}) => {
 const [token, setToken] = useState(initialToken);
 const [user, setUser] = useState(initialUser);
-const [userName, setUserName] = useState('');
+const [userName, setUserName] = useState(initialUserName);
 
 const login = (token, user, userName) => {
   setToken(token);
@@ -19,9 +20,10 @@ const login = (token, user, userName) => {
 const logout = () => {
   setToken(null);
   setUser(null);
-  setUserName('');
+  setUserName(null);
   localStorage.removeItem("token");
   localStorage.removeItem("user");
+  localStorage.removeItem("userName");
 };
 
   return <AuthContext.Provider value={{login, logout, token, user, userName}}>

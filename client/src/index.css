@@ -3,10 +3,18 @@ a{
 }
 .inactive{
     color: #fff;
+    text-decoration: none;
+}
+.active{
+    color: rgb(168, 168, 168);
+    text-underline-offset: 3px;
+    
 }
 .inactiveMobile{
     color: #000;
+    text-decoration: none;
 }
-.active{
-    color: grey;
+.activeMobile{
+    text-underline-offset: 3px;
+    color: #3d0079;
 }
