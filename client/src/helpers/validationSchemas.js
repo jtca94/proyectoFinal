@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-
+// create user validation schema
 export const createUserValidationSchema = yup.object({
     userName: yup
       .string('Ingresa tu nombre de usuario')
@@ -35,7 +35,7 @@ export const createUserValidationSchema = yup.object({
       .required('El domicilio es requerido')
       .min(5, 'El domicilio debe tener al menos 5 caracteres'),
     });
-
+//login validation schema
 export const loginValidationSchema = yup.object({
     email: yup
         .string('Ingresa tu email')
@@ -47,4 +47,37 @@ export const loginValidationSchema = yup.object({
         .min(8, 'La contraseña debe tener al menos 8 caracteres')
         .max(16, 'La contraseña debe tener como máximo 16 caracteres'),
     });
+// validation for new product
+export const newProductValidationSchema = yup.object({
+    name: yup
+        .string('Ingresa el nombre del producto')
+        .required('El nombre del producto es requerido')
+        .min(2, 'El nombre del producto debe tener al menos 2 caracteres')
+        .max(20, 'El nombre del producto debe tener como máximo 20 caracteres'),
+    price: yup
+        .number('Ingresa el precio del producto')
+        .required('El precio del producto es requerido')
+        .min(1, 'El precio del producto debe ser mayor a 0'),
+        //category is an autocomplete from a list of categories
+    category: yup
+        .string('Ingresa la categoría del producto')
+        .required('La categoría del producto es requerida'),
+        //image is a url to the image of the product, its optional
+    image: yup
+        .string('Ingresa la url de la imagen del producto')
+        .url('Ingresa una url válida')
+        .notRequired(),
+    stock: yup
+        .number('Ingresa el stock del producto')
+        .required('El stock del producto es requerido')
+        .min(1, 'El stock del producto debe ser mayor a 0'),
+    description: yup
+        .string('Ingresa la descripción del producto')
+        .required('La descripción del producto es requerida')
+        .min(10, 'La descripción del producto debe tener al menos 10 caracteres')
+        .max(3000, 'La descripción del producto debe tener como máximo 3000 caracteres'),
+    });
     
+
+        
+
