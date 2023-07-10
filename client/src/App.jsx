@@ -8,9 +8,12 @@ import Register from "./pages/LoginRegister/Register";
 import Productos from "./pages/Productos/Productos";
 import Carro from "./pages/Carro/Carro";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import {useContext} from "react";
+import {AuthContext} from "./context/AuthContext";
 
 
 const App = () => {
+  const {user} = useContext(AuthContext);
   return (
     <>
       <NavBar />
@@ -23,7 +26,7 @@ const App = () => {
         {/* este si es que no se ha logeado el boton estará como disabled */}
         <Route path="/pedidos" element={<Carro/>} />
         {/* para entrar al dashboard no hay boton aun, hay que ingresar manualmente /dashboard */}
-        <Route path="/dashboard//*" element={<Dashboard/>} />
+        <Route path="/dashboard//*" element={user ? <Dashboard/> : <Login/>} />
       </Routes>
       <Footer />
     </>
