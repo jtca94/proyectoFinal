@@ -4,11 +4,16 @@ import PropTypes from "prop-types";
 export const UserProductsContext = createContext();
 
 export const UserProductsProvider = ({children}) => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState({});
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
   const getProducts = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/productByUser`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/productsByUser`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -16,16 +21,11 @@ export const UserProductsProvider = ({children}) => {
         },
       });
       const data = await res.json();
-      console.log(data);
-      setProducts(data);
+      setProducts(data.userProducts);
     } catch (error) {
       console.log(error);
     }
-  };
-
-  useEffect(() => {
-    getProducts();
-  }, []);
+  }; 
 
   return (
     <UserProductsContext.Provider value={{products}}>

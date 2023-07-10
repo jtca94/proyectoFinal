@@ -15,9 +15,8 @@ export const createProduct = async (req, res) => {
 export const UserProducts = async (req, res) => {
     try {
         const { userId } = req.body.payload;
-        console.log(req.body.payload)
         const userProducts = await getUserProducts(userId);
-        return res.status(200).json({ok: true, userProducts});
+        return res.status(200).json({ok: true, data: userProducts});
     } catch (error) {
         return res.status(500).json({ok: false, message: error.message});
     }

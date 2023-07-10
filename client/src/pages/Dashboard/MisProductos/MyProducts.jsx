@@ -1,7 +1,38 @@
-import {Typography, Box, Button, Grid} from "@mui/material";
+import {Typography, Box, Button} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import {useContext, useEffect, useState} from "react";
+import UserArticles from "../../../components/UserArticles/userArticles";
+import {AuthContext} from "../../../context/AuthContext";
 
 const MyProducts = () => {
+  const {token} = useContext(AuthContext);
+  const [products, setProducts] = useState([]);
+  // make products an array of objects
+
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/productsByUser`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const data = await res.json();
+        setProducts(data.data);
+        console.log(data)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProducts();
+  }, [token]);
+
   const navigate = useNavigate();
   return (
     <>
@@ -44,82 +75,27 @@ const MyProducts = () => {
         >
           Artículos
         </Typography>
-        <Grid  container sx={{mt: 3}}>
-          <Grid item xs={12} sm={3}>
-            <Box
-              component="img"
-              src="https://plus.unsplash.com/premium_photo-1687991219913-6b74a90a834d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1332&q=80"
-              sx={{
-                width: "100px",
-                height: "100px",
-                objectFit: "cover",
-                borderRadius: "50%",
-                border: "1px solid black",
-              }}
-              alt="imagen de producto"
-            />
-          </Grid>
-          <Grid container item sx={{display: "flex"}} xs={12} sm={6}>
-            <Grid
-              item
-              xs={12}
-              sx={{
-                display: "flex",
-                justifyContent: {xs: "center", sm: "normal"},
-              }}
-            >
-              <Typography
-                variant="h3"
-                sx={{fontSize: "24px", color: "custom.purple"}}
-              >
-                Nombre del producto
-              </Typography>
-            </Grid>
-            <Grid
-              item
-              xs={6}
-              sx={{
-                display: "flex",
-                justifyContent: {xs: "center", sm: "normal"},
-              }}
-            >
-              <Typography variant="body1">Categoría</Typography>
-            </Grid>
-            <Grid
-              item
-              xs={6}
-              sx={{
-                display: "flex",
-                justifyContent: {xs: "center", sm: "normal"},
-              }}
-            >
-              <Typography variant="body1">Stock</Typography>
-            </Grid>
-          </Grid>
-          <Grid container item sx={{display: "flex"}} xs={12} sm={3}>
-            <Grid
-              item
-              xs={6}
-              sm={12}
-              sx={{display: "flex", justifyContent: "center"}}
-            >
-              <Typography sx={{fontSize: "24px"}} variant="h5">
-                Precio
-              </Typography>
-            </Grid>
-            <Grid item xs={6} sm={12} sx={{display: "block", me: "auto"}}>
-              <Button variant="outlined" size="small" color="error">
-                Eliminar
-              </Button>
-            </Grid>
-          </Grid>
-          <hr style={{width: "90%", align: "center"}} />
-        </Grid>
       </Box>
-
+      {products.length === 0 ? (
+        <Typography sx={{fontSize: "16px", mb: 3}} gutterBottom>
+          No tienes productos en venta
+        </Typography>
+      ) : (
+        products.map((product) => (
+          <UserArticles
+            key={product.id}
+            id={product.id}
+            name={product.name}
+            price={product.price}
+            image={product.image}
+            category={product.category}
+            stock={product.stock}
+          />
+        ))
+      )}
       <Button
         variant="contained"
-        sx={{display: "block", mb: 3}}
+        sx={{display: "block", my: 3}}
         onClick={() => {
           navigate("/dashboard");
         }}

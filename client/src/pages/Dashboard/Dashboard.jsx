@@ -9,6 +9,7 @@ import Sells from "./Vender/Sells";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {useContext, useState} from "react";
 import {AuthContext} from "../../context/AuthContext";
+import {UserProductsProvider} from "../../context/userProducts";
 
 const Dashboard = () => {
   const {logout, userName} = useContext(AuthContext);
@@ -79,12 +80,14 @@ const Dashboard = () => {
         </Grid>
         <Grid item xs={12} md={8}>
           <Container sx={{ml: {xs: 0, md: 1.5}}}>
-            <Routes>
-              <Route path="/" element={<InicioDash />} />
-              <Route path="/myprod" element={<MyProducts />} />
-              <Route path="/mycart" element={<Shopping />} />
-              <Route path="/sellprod" element={<Sells />} />
-            </Routes>
+            <UserProductsProvider>
+              <Routes>
+                <Route path="/" element={<InicioDash />} />
+                <Route path="/myprod" element={<MyProducts />} />
+                <Route path="/mycart" element={<Shopping />} />
+                <Route path="/sellprod" element={<Sells />} />
+              </Routes>
+            </UserProductsProvider>
           </Container>
         </Grid>
       </Grid>
