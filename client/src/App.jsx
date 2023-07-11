@@ -8,6 +8,7 @@ import Register from "./pages/LoginRegister/Register";
 import Productos from "./pages/Productos/Productos";
 import Carro from "./pages/Carro/Carro";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import DetailProduct from "./pages/Productos/DetailProduct";
 
 
 const App = () => {
@@ -20,6 +21,8 @@ const App = () => {
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/productos" element={<Productos/>} />
+        {/* Ruta Detail Product */}
+        <Route path="/productos/:id" element={<DetailProduct/>} />
         {/* este si es que no se ha logeado el boton estará como disabled */}
         <Route path="/pedidos" element={<Carro/>} />
         {/* para entrar al dashboard no hay boton aun, hay que ingresar manualmente /dashboard */}

@@ -1,53 +1,57 @@
-/* MUI */
+{/* MUI */}
 import { Grid } from "@mui/material"
 
-/* Componentes */
+{/* Componentes */}
 import CardProducts from "../../components/Products/CardProducts";
 import CategoryFilters from "../../components/Products/CategoryFilters";
 
-/* DB */
+{/* DB */}
 import FakeDatabase from "../../components/Products/FakeDatabase";
 
-/* React */
+{/* React */}
 import { useState } from "react";
 
 const Productos = () => {
 
-  const [arrayDB, setArrayDB] = useState(FakeDatabase);
+const [arrayDB, setArrayDB] = useState(FakeDatabase);
 
-  return (
-    <>
+return (
+  <>
+  <Grid 
+  container 
+  justifyContent='center'
+  padding={2} 
+  mb={5}>
+    <Grid item 
+    xs={10} sm={10} md={3} lg={3}>
+      <CategoryFilters></CategoryFilters>
+    </Grid>
     <Grid 
-    container 
-    padding={2} 
-    mb={5}>
-      <Grid item xs={3}>
-        <CategoryFilters></CategoryFilters>
-      </Grid>
+    item 
+    xs={10} sm={10} md={9} lg={9}>
       <Grid 
-      item 
-      xs={9}>
-        <Grid 
-        container 
-        spacing={4}>
-          {FakeDatabase.map((artículo) => (
-            <Grid 
-            item
-            xs={4}
-            key={artículo.id}
-            >
-              <CardProducts
-              imageUrl={artículo.img}
-              title={artículo.title}
-              brand={artículo.category}
-              description={artículo.description}
-              price={artículo.price}/>
-            </Grid>
-          ))}
-        </Grid>
+      container 
+      justifyContent='center'
+      spacing={4}>
+        {arrayDB.map((artículo) => (
+          <Grid 
+          item
+          xs={10} sm={10} md={5} lg={4}
+          key={artículo.id}
+          >
+            <CardProducts
+            img={artículo.img}
+            title={artículo.title}
+            category={artículo.category}
+            description={artículo.description}
+            price={artículo.price}
+            to={`http://localhost:5173/productos/${artículo.id}`}/>
+          </Grid>
+        ))}
       </Grid>
     </Grid>
-    </>
-  )
-}
+  </Grid>
+  </>
+)}
+
 export default Productos
