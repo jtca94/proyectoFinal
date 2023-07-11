@@ -7,9 +7,6 @@ import {AuthContext} from "../../../context/AuthContext";
 const MyProducts = () => {
   const {token} = useContext(AuthContext);
   const [products, setProducts] = useState([]);
-  // make products an array of objects
-
-
   useEffect(() => {
     const getProducts = async () => {
       try {

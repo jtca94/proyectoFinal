@@ -11,10 +11,17 @@ a{
     
 }
 .inactiveMobile{
-    color: #000;
+    color: #000000;
     text-decoration: none;
 }
 .activeMobile{
     text-underline-offset: 3px;
     color: #3d0079;
+}
+.slideText{
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    transform: translate(-30%, -50%);    
 }

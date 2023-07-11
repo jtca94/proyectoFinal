@@ -18,6 +18,7 @@ import {NavLink, Link} from "react-router-dom";
 import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
 import {useContext} from "react";
 import {AuthContext} from "../../context/AuthContext";
+import logo from "../../images/logo3.png";
 
 const drawerWidth = 240;
 const navItems = [
@@ -91,26 +92,33 @@ function NavBar(props) {
       <AppBar component="nav">
         <Toolbar>
           <IconButton
-            color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{mr: 2, display: {md: "none"}}}
+            sx={{mr: 2, display: {md: "none"}, color: "#fff"}}
           >
             <MenuIcon />
           </IconButton>
-
-          <Box sx={{display: "flex", flexGrow: 1}}>
-            <VideogameAssetIcon fontSize="large" sx={{mr: 3}} />
+          <Box
+            sx={{
+              display: "flex",
+              flexGrow: 1,
+              height: "40px",
+              alignItems: "baseline",
+              mt: 1,
+            }}
+          >
             <Link to={"/"} style={{textDecoration: "none"}}>
-              <Typography
-                variant="h6"
-                component="div"
-                sx={{display: {sm: "block"}, textDecoration: "none"}}
-              >
-                LA TIENDITA
-              </Typography>
+              <Box
+                component="img"
+                src={logo}
+                alt="logo"
+                sx={{width: "100%", height: 30}}
+              />
             </Link>
+            <Box sx={{display: "flex"}}>
+              <VideogameAssetIcon sx={{ml: 1}}  />
+            </Box>
           </Box>
 
           <Box sx={{display: {xs: "none", md: "block"}}}>
