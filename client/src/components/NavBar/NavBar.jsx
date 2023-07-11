@@ -16,19 +16,28 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import {NavLink, Link} from "react-router-dom";
 import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
+import {useContext} from "react";
+import {AuthContext} from "../../context/AuthContext";
+import logo from "../../images/logo3.png";
 
 const drawerWidth = 240;
 const navItems = [
-  {name: "Productos", path: "/productos"},
-  {name: "contacto", path: "/contacto"},
+  {name: "Inicio", path: "/"},
   {name: "Iniciar Sesión", path: "/login"},
-  {name: "Mis Compras", path: "/pedidos"},
+  {name: "Productos", path: "/productos"},
+  {name: "Contacto", path: "/contacto"},
 ];
-
+const navItemsLogged = [
+  {name: "Inicio", path: "/"},
+  {name: "Productos", path: "/productos"},
+  {name: "Contacto", path: "/contacto"},
+  {name: "Mi Perfil", path: "/dashboard"},
+  {name: "Carrito", path: "/pedidos"},
+];
 function NavBar(props) {
   const {window} = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const {user} = useContext(AuthContext);
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
@@ -41,21 +50,35 @@ function NavBar(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item.name} disablePadding>
-            <ListItemButton sx={{textAlign: "center"}}>
-              <NavLink
-                className={({isActive}) =>
-                  isActive ? "active" : "inactiveMobile"
-                }
-                style={{textDecoration: "none"}}
-                to={item.path}
-              >
-                <ListItemText primary={item.name} />
-              </NavLink>
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {user
+          ? navItemsLogged.map((item) => (
+              <ListItem key={item.name}>
+                <ListItemButton>
+                  <NavLink
+                    className={({isActive}) =>
+                      isActive ? "activeMobile" : "inactiveMobile"
+                    }
+                    to={item.path}
+                  >
+                    <ListItemText primary={item.name} />
+                  </NavLink>
+                </ListItemButton>
+              </ListItem>
+            ))
+          : navItems.map((item) => (
+              <ListItem key={item.name}>
+                <ListItemButton>
+                  <NavLink
+                    className={({isActive}) =>
+                      isActive ? "activeMobile" : "inactiveMobile"
+                    }
+                    to={item.path}
+                  >
+                    <ListItemText primary={item.name} />
+                  </NavLink>
+                </ListItemButton>
+              </ListItem>
+            ))}
       </List>
     </Box>
   );
@@ -69,42 +92,61 @@ function NavBar(props) {
       <AppBar component="nav">
         <Toolbar>
           <IconButton
-            color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{mr: 2, display: {md: "none"}}}
+            sx={{mr: 2, display: {md: "none"}, color: "#fff"}}
           >
             <MenuIcon />
           </IconButton>
-
-          <Box sx={{display: "flex", flexGrow: 1}}>
-            <VideogameAssetIcon fontSize="large" sx={{mr: 3}} />
-            <Link to={"/"}
-                style={{textDecoration: "none"}}
-            >
-              <Typography
-                variant="h6"
-                component="div"
-                sx={{display: {sm: "block"}, textDecoration: "none"}}
-              >
-                LA TIENDITA
-              </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexGrow: 1,
+              height: "40px",
+              alignItems: "baseline",
+              mt: 1,
+            }}
+          >
+            <Link to={"/"} style={{textDecoration: "none"}}>
+              <Box
+                component="img"
+                src={logo}
+                alt="logo"
+                sx={{width: "100%", height: 30}}
+              />
             </Link>
+            <Box sx={{display: "flex"}}>
+              <VideogameAssetIcon sx={{ml: 1}}  />
+            </Box>
           </Box>
 
           <Box sx={{display: {xs: "none", md: "block"}}}>
-            {navItems.map((item) => (
-              <Button key={item.name} sx={{color: "#fff", px: 3}}>
-                <NavLink
-                  className={({isActive}) => (isActive ? "active" : "inactive")}
-                  style={{textDecoration: "none"}}
-                  to={item.path}
-                >
-                  {item.name}
-                </NavLink>
-              </Button>
-            ))}
+            {user
+              ? navItemsLogged.map((item) => (
+                  <Button key={item.name} sx={{color: "#fff", px: 3}}>
+                    <NavLink
+                      className={({isActive}) =>
+                        isActive ? "active" : "inactive"
+                      }
+                      to={item.path}
+                    >
+                      {item.name}
+                    </NavLink>
+                  </Button>
+                ))
+              : navItems.map((item) => (
+                  <Button key={item.name} sx={{color: "#fff", px: 3}}>
+                    <NavLink
+                      className={({isActive}) =>
+                        isActive ? "active" : "inactive"
+                      }
+                      to={item.path}
+                    >
+                      {item.name}
+                    </NavLink>
+                  </Button>
+                ))}
           </Box>
         </Toolbar>
       </AppBar>

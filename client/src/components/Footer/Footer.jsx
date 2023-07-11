@@ -4,7 +4,7 @@ import { Facebook, GitHub, Instagram, Twitter, WhatsApp } from "@mui/icons-mater
 function Footer() {
   return (
     <footer>
-      <Container maxWidth='false' sx={{backgroundColor: 'primary.main', color: '#fff', pb: 3}}>
+      <Container maxWidth='false' sx={{backgroundColor: 'primary.alternative', color: '#fff', pb: 3}}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <Typography variant="h6" gutterBottom>

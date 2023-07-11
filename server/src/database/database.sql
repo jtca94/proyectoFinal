@@ -1,0 +1,37 @@
+CREATE DATABASE IF NOT EXISTS `database`;
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  userName VARCHAR(64) NOT NULL,
+  firstName VARCHAR(255) NOT NULL,
+  lastName VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  address VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE products (
+  id SERIAL PRIMARY KEY,
+  userId INT NOT NULL REFERENCES users(id),
+  name VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  price NUMERIC(10,2) NOT NULL,
+  category VARCHAR(255) NOT NULL,
+  image VARCHAR(255) NOT NULL,
+  stock INT NOT NULL
+);
+
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  userId INT NOT NULL REFERENCES users(id),
+  productId INT NOT NULL REFERENCES products(id),
+  quantity INT NOT NULL
+);
+
+CREATE TABLE ratings (
+  id SERIAL PRIMARY KEY,
+  userId INT NOT NULL REFERENCES users(id),
+  productId INT NOT NULL REFERENCES products(id),
+  rating INT NOT NULL,
+  comment VARCHAR(300) NOT NULL
+);

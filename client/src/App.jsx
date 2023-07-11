@@ -9,24 +9,28 @@ import Productos from "./pages/Productos/Productos";
 import Carro from "./pages/Carro/Carro";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import DetailProduct from "./pages/Productos/DetailProduct";
+import {useContext} from "react";
+import {AuthContext} from "./context/AuthContext";
 
-
+// usear pagina 404 cuando se intente acceder a una ruta restringida
 const App = () => {
+  const {user} = useContext(AuthContext);
   return (
     <>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Inicio/>} />
-        <Route path="/contacto" element={<Contacto/>} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/register" element={<Register/>} />
-        <Route path="/productos" element={<Productos/>} />
+        <Route path="/" element={<Inicio />} />
+        <Route path="/contacto" element={<Contacto />} />
+        <Route path="/login" element={user ? <Inicio/> : <Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/productos" element={<Productos />} />
         {/* Ruta Detail Product */}
         <Route path="/productos/:id" element={<DetailProduct/>} />
-        {/* este si es que no se ha logeado el boton estará como disabled */}
-        <Route path="/pedidos" element={<Carro/>} />
-        {/* para entrar al dashboard no hay boton aun, hay que ingresar manualmente /dashboard */}
-        <Route path="/dashboard" element={<Dashboard/>} />
+        <Route path="/pedidos" element={user ? <Carro /> : <Login/>} />
+        <Route
+          path="/dashboard//*"
+          element={user ? <Dashboard /> : <Login />}
+        />
       </Routes>
       <Footer />
     </>
