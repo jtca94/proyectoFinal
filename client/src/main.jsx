@@ -9,7 +9,7 @@ import {AuthProvider} from "./context/AuthContext.jsx";
 import {ProductsProvider} from "./context/ProductsContext.jsx";
 import {CssBaseline} from "@mui/material";
 
-const theme = createTheme({
+export const theme = createTheme({
   palette: {
     primary: {
       main: "#151515",
@@ -37,14 +37,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <UserContextProvider>
         <AuthProvider>
-        <ProductsProvider>
-          <CssBaseline />
-          <ThemeProvider theme={theme}>
+          <ProductsProvider>
+            <CssBaseline />
+            <ThemeProvider theme={theme}>
               <App />
             </ThemeProvider>
+          </ProductsProvider>
+        </AuthProvider>
       </UserContextProvider>
-        </ProductsProvider>
-      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
