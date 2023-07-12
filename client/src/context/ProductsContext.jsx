@@ -5,7 +5,6 @@ export const ProductsContext = createContext();
 
 export const ProductsProvider = ({children}) => {
   const [products, setProducts] = useState([]);
-
   useEffect(() => {
     getProducts();
   }, []);
@@ -23,7 +22,7 @@ export const ProductsProvider = ({children}) => {
     } catch (error) {
       console.log(error);
     }
-  }; 
+  };
 
   return (
     <ProductsContext.Provider value={{products}}>
