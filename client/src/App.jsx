@@ -11,8 +11,8 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import DetailProduct from "./pages/Productos/DetailProduct";
 import {useContext} from "react";
 import {AuthContext} from "./context/AuthContext";
+import NotFound from "./pages/404/404";
 
-// usear pagina 404 cuando se intente acceder a una ruta restringida
 const App = () => {
   const {user} = useContext(AuthContext);
   return (
@@ -21,16 +21,17 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Inicio />} />
         <Route path="/contacto" element={<Contacto />} />
-        <Route path="/login" element={user ? <Inicio/> : <Login />} />
+        <Route path="/login" element={user ? <Inicio /> : <Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/productos" element={<Productos />} />
         {/* Ruta Detail Product */}
-        <Route path="/productos/:id" element={<DetailProduct/>} />
-        <Route path="/pedidos" element={user ? <Carro /> : <Login/>} />
+        <Route path="/productos/:id" element={<DetailProduct />} />
+        <Route path="/pedidos" element={user ? <Carro /> : <NotFound />} />
         <Route
           path="/dashboard//*"
-          element={user ? <Dashboard /> : <Login />}
+          element={user ? <Dashboard /> : <NotFound />}
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </>

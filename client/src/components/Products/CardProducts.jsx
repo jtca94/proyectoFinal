@@ -1,11 +1,17 @@
-{/* MUI */}
-import {Typography, Card, CardMedia, CardContent, CssBaseline, Divider, Box} from "@mui/material";
-
-{/* React */}
-import { Link } from "react-router-dom";
+// MUI
+import {
+  Typography,
+  Card,
+  CardMedia,
+  CardContent,
+  Divider,
+  Box,
+} from "@mui/material";
+// React
+import {Link} from "react-router-dom";
+import PropTypes from "prop-types";
 
 const CardProducts = (props) => {
-  
   return (
   <>
   <CssBaseline />
@@ -52,6 +58,12 @@ const CardProducts = (props) => {
           <Divider></Divider>
         </Box>
         <Typography 
+          variant="body2" 
+          color="textSecondary" 
+          flexGrow={1}>
+          {props.description}
+        </Typography>
+        <Typography 
         variant="h4" 
         fontWeight="bold" 
         component="h2">
@@ -64,4 +76,11 @@ const CardProducts = (props) => {
   )
 }
 
-export default CardProducts
+CardProducts.propTypes = {
+  to: PropTypes.string.isRequired,
+  img: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+};
