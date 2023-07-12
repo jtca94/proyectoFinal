@@ -43,7 +43,6 @@ return (
             img={artículo.img}
             title={artículo.title}
             category={artículo.category}
-            description={artículo.description}
             price={artículo.price}
             to={`http://localhost:5173/productos/${artículo.id}`}/>
           </Grid>

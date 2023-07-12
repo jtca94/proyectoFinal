@@ -52,12 +52,6 @@ const CardProducts = (props) => {
           <Divider></Divider>
         </Box>
         <Typography 
-          variant="body2" 
-          color="textSecondary" 
-          flexGrow={1}>
-          {props.description}
-        </Typography>
-        <Typography 
         variant="h4" 
         fontWeight="bold" 
         component="h2">
