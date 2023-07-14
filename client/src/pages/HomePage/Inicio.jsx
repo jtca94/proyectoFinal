@@ -1,4 +1,4 @@
-import {Box, Container, Typography} from "@mui/material";
+import {Box, Container, Typography, Grid} from "@mui/material";
 import {Splide, SplideSlide} from "@splidejs/react-splide";
 import "@splidejs/splide/css";
 import slide1 from "../../images/slide1.jpg";
@@ -6,12 +6,27 @@ import slide2 from "../../images/slide2.jpg";
 import slide3 from "../../images/slide3.jpg";
 import slide4 from "../../images/slide4.jpg";
 import slide5 from "../../images/slide5.jpg";
+import article1 from "../../images/article1.jpg"
 import ProductsSlide from "../../components/Home/ProductsSlide";
 
+import articlesHome from "../../components/Home/articlesDB";
+import { useEffect, useState } from "react";
+import articles from "../../images/article1.jpg"
+
 const Inicio = () => {
- 
+
+  const [articleSelected, setArticleSelected] = useState(null);
+  const articlesHomeDB = articlesHome
+
+  useEffect(() => {
+    const indiceAleatorio = Math.floor(Math.random() * articlesHomeDB.length);
+    const articuloAleatorio = articlesHomeDB[indiceAleatorio];
+    setArticleSelected(articuloAleatorio);
+  }, []);
+
   return (
     <>
+    
       <Container disableGutters maxWidth="false">
         <Splide
         //ignorar css
@@ -184,7 +199,87 @@ const Inicio = () => {
         </Splide>
       </Container>
       <ProductsSlide />
-      
+      <Grid
+      container
+      sx={{marginY: '5rem'}}>
+
+          
+          {articleSelected ? (
+          <>
+          {/* Box Left */}
+
+          <Grid
+          item
+          xs={6}>
+            <img src={articleSelected.img} alt="" />
+          </Grid>
+
+          {/* Box Right */}
+
+          <Grid
+          item
+          sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'}}
+          xs={6}>
+            <Grid
+            container
+            sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'}}>
+              <Grid
+              item xs={9}>
+                <Box
+                sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '2rem'
+                }}>
+                  <Typography
+                  sx={{
+                  fontSize: '2rem',
+                  fontWeight: 'bold',
+                  textTransform: 'uppercase',
+                  textAlign: 'center'}}>
+                    {articleSelected.title}
+                  </Typography>
+                  <Typography
+                  sx={{
+                  fontSize: '1rem',
+                  fontWeight: 'light',
+                  textAlign: 'justify',
+                  textTransform: 'uppercase'}}>
+                    {articleSelected.text}
+                  </Typography>
+                </Box>
+              </Grid>
+            </Grid>
+          </Grid>
+          </>
+          ) : (
+          <Grid
+          item
+          xs={12}>
+            <Typography
+                sx={{
+                  fontSize: '2rem',
+                  fontWeight: 'bold'}}>
+                  Cargando ...
+                </Typography>
+          </Grid>
+            
+          )}
+          
+
+
+
+
+        </Grid>
     </>
   );
 };

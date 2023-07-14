@@ -11,7 +11,13 @@ import FakeDatabase from "../../components/Products/FakeDatabase";
 {/* React */}
 import { useState } from "react";
 
+import { useContext } from "react";
+import { ProductsContext } from "../../context/ProductsContext";
+
+
 const Productos = () => {
+
+const { products } = useContext(ProductsContext)
 
 const [arrayDB, setArrayDB] = useState(FakeDatabase);
 
@@ -33,15 +39,15 @@ return (
       container 
       justifyContent='center'
       spacing={4}>
-        {arrayDB.map((artículo) => (
+        {products.map((artículo) => (
           <Grid 
           item
           xs={10} sm={10} md={5} lg={4}
           key={artículo.id}
           >
             <CardProducts
-            img={artículo.img}
-            title={artículo.title}
+            image={artículo.image}
+            name={artículo.name}
             category={artículo.category}
             price={artículo.price}
             to={`http://localhost:5173/productos/${artículo.id}`}/>

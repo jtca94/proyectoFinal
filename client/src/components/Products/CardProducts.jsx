@@ -14,7 +14,6 @@ import PropTypes from "prop-types";
 const CardProducts = (props) => {
   return (
   <>
-  <CssBaseline />
   <Link 
   to={props.to} 
   style={{textDecoration: 'none'}}>
@@ -31,7 +30,7 @@ const CardProducts = (props) => {
         component="img"
         alt="Imagen"
         height="420rem"
-        image={props.img}/>
+        image={props.image}/>
       <CardContent  
       sx={{ 
         textTransform: 'uppercase' }}>
@@ -39,7 +38,7 @@ const CardProducts = (props) => {
         variant="subtitle1" 
         fontWeight="bold" 
         component="h2">
-          {props.title}
+          {props.name}
         </Typography>
         <Box my={2}>
           <Typography 
@@ -58,12 +57,6 @@ const CardProducts = (props) => {
           <Divider></Divider>
         </Box>
         <Typography 
-          variant="body2" 
-          color="textSecondary" 
-          flexGrow={1}>
-          {props.description}
-        </Typography>
-        <Typography 
         variant="h4" 
         fontWeight="bold" 
         component="h2">
@@ -76,11 +69,12 @@ const CardProducts = (props) => {
   )
 }
 
+export default CardProducts
+
 CardProducts.propTypes = {
   to: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
 };
