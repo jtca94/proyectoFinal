@@ -12,14 +12,19 @@ import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 
 const CardProducts = (props) => {
+
+  const formattedPrice = parseFloat(props.price).toLocaleString('en-US', {
+    minimumFractionDigits: 0,
+    useGrouping: true,
+  }).replace(/,/g, '.')
+
   return (
   <>
   <Link 
   to={props.to} 
   style={{textDecoration: 'none'}}>
     <Card sx={{ 
-      backgroundColor: 'white', 
-      padding: 2, 
+      backgroundColor: 'white',
       borderRadius: '10px', 
       boxShadow: '0px 9px 15px -1px rgba(0,0,0,0.2)'
       }}>
@@ -35,22 +40,32 @@ const CardProducts = (props) => {
       sx={{ 
         textTransform: 'uppercase' }}>
         <Typography  
-        variant="subtitle1" 
+        variant="h6" 
         fontWeight="bold" 
         component="h2">
           {props.name}
         </Typography>
-        <Box my={2}>
+        <Box my={2}
+        justifyContent='space-between'
+        display='flex'
+        alignItems='end'>
           <Typography 
           sx={{
             backgroundColor: 'black', 
             color: 'white', 
             borderRadius: '1rem',
             display: 'inline',
-            padding: '.2rem'}} 
+            padding: '.4rem'}} 
             variant="subtitle2" 
             fontWeight="light">
             {props.category}
+          </Typography>
+          <Typography 
+          variant="subtitle2" 
+          fontWeight="light" 
+          component="h5"
+          textTransform='uppercase'>
+            Stock: {props.stock} un.
           </Typography>
         </Box>
         <Box mb={2}>
@@ -60,7 +75,7 @@ const CardProducts = (props) => {
         variant="h4" 
         fontWeight="bold" 
         component="h2">
-          {props.price}
+          ${formattedPrice}
         </Typography>
       </CardContent>
     </Card>

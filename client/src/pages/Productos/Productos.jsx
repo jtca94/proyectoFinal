@@ -7,6 +7,7 @@ import CategoryFilters from "../../components/Products/CategoryFilters";
 
 {/* DB */}
 import FakeDatabase from "../../components/Products/FakeDatabase";
+import FakeRatingsDB from "../../components/Products/FakeRatings";
 
 {/* React */}
 import { useState } from "react";
@@ -50,6 +51,7 @@ return (
             name={artículo.name}
             category={artículo.category}
             price={artículo.price}
+            stock={artículo.stock}
             to={`http://localhost:5173/productos/${artículo.id}`}/>
           </Grid>
         ))}
