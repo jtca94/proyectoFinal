@@ -16,9 +16,11 @@ import {useNavigate} from "react-router-dom";
 import {gameCategories} from "../../../utils/gameCategories";
 import {useContext, useState} from "react";
 import {AuthContext} from "../../../context/AuthContext";
+import { ProductsContext } from "../../../context/ProductsContext";
 // recordar que en el backend la imagen sigue siendo obligatoria
 const Sells = () => {
   const {token, user} = useContext(AuthContext);
+  const {getProducts} = useContext(ProductsContext);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const formik = useFormik({
@@ -43,11 +45,13 @@ const Sells = () => {
           body: JSON.stringify(values),
         });
         const data = await res.json();
+        // also refresh page for the product to appear in the list
         if (res.ok === true) {
           formik.resetForm();
           setOpen(true);
           setTimeout(() => {
           setOpen(false);
+          getProducts();
           navigate("/dashboard");
           }, 1500);
         } else {

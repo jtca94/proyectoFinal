@@ -45,7 +45,7 @@ const Login = () => {
           setMessage("");
           setOpen(true);
           formik.resetForm();
-          // Save token and user in localStorage
+          // Save token and user in localStorage and destroy it after 2 hours
           localStorage.setItem("token", data.token);
           localStorage.setItem("user", data.id);
           localStorage.setItem("userName", data.userName);

@@ -23,6 +23,7 @@ export const ProductsSlide = () => {
       </Typography>
       <Splide
         options={{
+          clickable: true,
           padding: {right: "5rem", left: "5rem"},
           pagination: false,
           speed: 800,
