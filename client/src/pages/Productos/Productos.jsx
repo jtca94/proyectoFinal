@@ -11,7 +11,7 @@ import {ProductsContext} from "../../context/ProductsContext";
 const Productos = () => {
   const {products} = useContext(ProductsContext);
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" sx={{backgroundColor: "#3b3b3b", pb: 10}}>
       <Grid container justifyContent="center" spacing={2} mb={5}>
         <Grid item xs={12} md={3} sx={{justifyContent: {xs: "center"}, my: 3}}>
           <CategoryFilters />
@@ -25,12 +25,12 @@ const Productos = () => {
               textTransform: "uppercase",
               textAlign: "center",
               my: 3,
-              color: "#f50057",
+              color: "#00BB9D",
             }}
           >
             Productos
           </Typography>
-          <Divider sx={{backgroundColor: "#f50057", height: "0.1rem", width: "80%", mx: "auto", }} />
+          <Divider sx={{backgroundColor: "#00BB9D", height: "0.1rem", width: "80%", mx: "auto", }} />
           <Grid container justifyContent="center" spacing={2} sx={{my: 3}}>
             {products.map((product) => (
               <Grid item xs={12} sm={6} md={4} key={product.id}>

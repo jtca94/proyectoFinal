@@ -27,7 +27,7 @@ const HeroSlide = () => {
           pagination: false,
         }}
         style={{
-          boxShadow: "0px 0px 20px 0px rgba(0,0,0,0.75)",
+          boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)",
         }}
       >
         <SplideSlide>
