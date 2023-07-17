@@ -64,7 +64,7 @@ const DetailProductId = (props) => {
                 })}
               </Typography>
             </Box>
-            {/* BOTONES CONTACTO Y COMPRA */}
+            {/* BOTONES VOLVER Y COMPRA */}
             <Grid
               container
               display="flex"
@@ -93,7 +93,10 @@ const DetailProductId = (props) => {
                   variant="contained"
                   color="secondary"
                   startIcon={<ShoppingCartIcon />}
-                  onClick={()=>{ handleAddToCart(props)}}
+                  onClick={()=>{ 
+                    handleAddToCart(props);
+                    props.setOpen(true);
+                  }}
                   sx={{
                     borderRadius: 5,
                     boxShadow: "0 0 10px rgba(0,0,0,0.5)",                 
@@ -120,4 +123,5 @@ DetailProductId.propTypes = {
   image: PropTypes.string.isRequired,
   stock: PropTypes.number.isRequired,
   id: PropTypes.number.isRequired,
+  setOpen: PropTypes.func.isRequired,
 };
