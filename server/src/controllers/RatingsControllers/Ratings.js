@@ -1,11 +1,13 @@
-import { addOrder } from "../../models/OrdersModels/addOrder.js"
+import { addRating } from "../../models/RatingsModels/addRating.js"
 import { handleErrors } from "../../middlewares/handleErrors.js";
-
 
 export const add = async (req, res) => {
     try {
-        const { userid, productid, quantity } = req.body;
-        addOrder(userid, productid, quantity);
+        
+        const { userid, rating, comment } = req.body;
+        const { productid } = req.params;
+
+        addRating(userid, productid, rating, comment);
         return res.status(200).json({ok: true, message: "Add order successfully"});
     } catch (error) {
         const { status, message} = handleErrors(error.code)
@@ -13,6 +15,6 @@ export const add = async (req, res) => {
     }
 };
 
-export const orderControllers = {
+export const ratingControllers = {
     add
 };

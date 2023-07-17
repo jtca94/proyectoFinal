@@ -1,12 +1,14 @@
-export const verifyOrders = (req, res, next) => {
+export const verifyRatings = (req, res, next) => {
     try {
-      console.log(req.body. userid)
-      const {userid, productid, quantity} = req.body;
+        
+      const {userid, rating, comment} = req.body;
+      const { productid } = req.params;
       
       if (
         !userid ||
         !productid ||
-        !quantity
+        !rating ||
+        !comment
       ) {
         throw new Error("All fields are required");
       }
