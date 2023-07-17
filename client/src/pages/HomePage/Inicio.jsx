@@ -11,10 +11,8 @@ import ProductsSlide from "../../components/Home/ProductsSlide";
 const Inicio = () => {
  
   return (
-    <>
-      <Container disableGutters maxWidth="false">
+      <Container disableGutters maxWidth="false" sx={{backgroundColor: "#33363d"}}>
         <Splide
-        //ignorar css
           options={{
             lazyLoad: "nearby",
             speed: 1500,
@@ -28,6 +26,9 @@ const Inicio = () => {
             height: "80vh",
             autoplay: true,
             pagination: false,
+          }}
+          style={{
+            boxShadow: "0px 0px 20px 0px rgba(0,0,0,0.75)",
           }}
         >
           <SplideSlide>
@@ -182,10 +183,10 @@ const Inicio = () => {
             </Box>
           </SplideSlide>
         </Splide>
-      </Container>
       <ProductsSlide />
+      </Container>
       
-    </>
+    
   );
 };
 export default Inicio;

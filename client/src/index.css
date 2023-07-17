@@ -30,3 +30,8 @@ a{
     left: 30%;
     transform: translate(-30%, -50%);    
 }
+a:hover{
+    text-decoration: none;
+    transition: all 0.5s ease;
+    scale: 1.1;
+}

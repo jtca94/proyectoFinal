@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import {Button, CardActionArea, CardActions} from "@mui/material";
+import {Button, CardActionArea, CardActions, Divider} from "@mui/material";
 import PropTypes from "prop-types";
 import {useNavigate} from "react-router-dom";
 
@@ -17,7 +17,7 @@ export default function CardHome({product}) {
         flexDirection: "column",
         justifyContent: "space-between",
         height: "411px",
-        backgroundColor: "#292929",
+        backgroundColor: "#171717",
       }}
     >
       <CardActionArea>
@@ -31,6 +31,7 @@ export default function CardHome({product}) {
           <Typography color="white" gutterBottom variant="h5" component="div">
             {product.name}
           </Typography>
+          <Divider sx={{backgroundColor: "#fff", mb: 1}} />
           <Typography
             sx={{
               display: "inline-block",
