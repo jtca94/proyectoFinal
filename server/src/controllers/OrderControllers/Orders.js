@@ -1,4 +1,4 @@
-import {addOrder} from "../../models/OrdersModels/addOrder.js";
+import {addOrder} from "../../models/OrderModels/addOrder.js";
 import {handleErrors} from "../../middlewares/handleErrors.js";
 
 const newOrder = async (req, res) => {

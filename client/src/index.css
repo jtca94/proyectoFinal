@@ -7,7 +7,7 @@ a{
     text-decoration: none;
 }
 .active{
-    color: rgb(168, 168, 168);
+    color: #00ff00;
     text-underline-offset: 3px;
     
 }
