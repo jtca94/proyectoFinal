@@ -1,11 +1,21 @@
-import {Typography, Box, Button} from "@mui/material";
+import {
+  Typography,
+  Box,
+  Button,
+  DialogActions,
+  DialogContentText,
+  DialogContent,
+  DialogTitle,
+  Dialog,
+} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
 import UserArticles from "../../../components/UserArticles/userArticles";
 import {AuthContext} from "../../../context/AuthContext";
 
 const MyProducts = () => {
-  const {token} = useContext(AuthContext);
+  const {token, logout} = useContext(AuthContext);
+  const [open, setOpen] = useState(false);
   const [products, setProducts] = useState([]);
   useEffect(() => {
     const getProducts = async () => {
@@ -20,18 +30,55 @@ const MyProducts = () => {
             },
           }
         );
+        if (res.status === 401) {
+          throw new Error(
+            "Tu token de sesión ha expirado, vuelve a iniciar sesión"
+          );
+        }
         const data = await res.json();
         setProducts(data.data);
       } catch (error) {
-        console.log(error);
+        setOpen(true);
       }
     };
     getProducts();
   }, [token]);
 
+  const handleClose = () => {
+    setOpen(false);
+    logout();
+    navigate("/login");
+  };
+
   const navigate = useNavigate();
   return (
     <>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Sesión expirada
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+          Tu token de sesión ha expirado, vuelve a iniciar sesión, pulsa continuar para ir a la página de inicio de sesión.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button 
+            onClick={handleClose} 
+            autoFocus
+            variant="contained"
+            color="error"
+            sx={{display: "block", m: 3, color: "white"}}
+            >
+            ir a Login
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Typography align="center" component="h1" variant="h3" sx={{mb: 3}}>
         Productos en venta
       </Typography>

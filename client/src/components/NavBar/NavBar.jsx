@@ -18,7 +18,10 @@ import {NavLink, Link} from "react-router-dom";
 import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
 import {useContext} from "react";
 import {AuthContext} from "../../context/AuthContext";
+import {CartContext} from "../../context/CartContext";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import logo from "../../images/logo3.png";
+import { Badge } from "@mui/material";
 
 const drawerWidth = 240;
 const navItems = [
@@ -32,12 +35,13 @@ const navItemsLogged = [
   {name: "Productos", path: "/productos"},
   {name: "Contacto", path: "/contacto"},
   {name: "Mi Perfil", path: "/dashboard"},
-  {name: "Carrito", path: "/pedidos"},
+  {name: "Carro", path: "/pedidos"},
 ];
 function NavBar(props) {
   const {window} = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const {user} = useContext(AuthContext);
+  const {cartCount} = useContext(CartContext);
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
@@ -50,22 +54,10 @@ function NavBar(props) {
       </Typography>
       <Divider />
       <List>
-        {user
-          ? navItemsLogged.map((item) => (
-              <ListItem key={item.name}>
-                <ListItemButton>
-                  <NavLink
-                    className={({isActive}) =>
-                      isActive ? "activeMobile" : "inactiveMobile"
-                    }
-                    to={item.path}
-                  >
-                    <ListItemText primary={item.name} />
-                  </NavLink>
-                </ListItemButton>
-              </ListItem>
-            ))
-          : navItems.map((item) => (
+        {user ? (
+          <>
+            {" "}
+            {navItemsLogged.map((item) => (
               <ListItem key={item.name}>
                 <ListItemButton>
                   <NavLink
@@ -79,6 +71,23 @@ function NavBar(props) {
                 </ListItemButton>
               </ListItem>
             ))}
+          </>
+        ) : (
+          navItems.map((item) => (
+            <ListItem key={item.name}>
+              <ListItemButton>
+                <NavLink
+                  className={({isActive}) =>
+                    isActive ? "activeMobile" : "inactiveMobile"
+                  }
+                  to={item.path}
+                >
+                  <ListItemText primary={item.name} />
+                </NavLink>
+              </ListItemButton>
+            </ListItem>
+          ))
+        )}
       </List>
     </Box>
   );
@@ -117,25 +126,14 @@ function NavBar(props) {
               />
             </Link>
             <Box sx={{display: "flex"}}>
-              <VideogameAssetIcon sx={{ml: 1}}  />
+              <VideogameAssetIcon sx={{ml: 1}} />
             </Box>
           </Box>
 
           <Box sx={{display: {xs: "none", md: "block"}}}>
-            {user
-              ? navItemsLogged.map((item) => (
-                  <Button key={item.name} sx={{color: "#fff", px: 3}}>
-                    <NavLink
-                      className={({isActive}) =>
-                        isActive ? "active" : "inactive"
-                      }
-                      to={item.path}
-                    >
-                      {item.name}
-                    </NavLink>
-                  </Button>
-                ))
-              : navItems.map((item) => (
+            {user ? (
+              <>
+                {navItemsLogged.map((item) => (
                   <Button key={item.name} sx={{color: "#fff", px: 3}}>
                     <NavLink
                       className={({isActive}) =>
@@ -147,6 +145,37 @@ function NavBar(props) {
                     </NavLink>
                   </Button>
                 ))}
+              </>
+            ) : (
+              navItems.map((item) => (
+                <Button key={item.name} sx={{color: "#fff", px: 3}}>
+                  <NavLink
+                    className={({isActive}) =>
+                      isActive ? "active" : "inactive"
+                    }
+                    to={item.path}
+                  >
+                    {item.name}
+                  </NavLink>
+                </Button>
+              ))
+            )}
+          </Box>
+          <Box sx={{display: "flex", alignItems: "center"}}>
+            {user ? (
+              <NavLink
+                to={"/pedidos"}
+                style={{textDecoration: "none"}}
+                className={({isActive}) => (isActive ? "active" : "inactive")}
+              >
+                <IconButton>
+                  <Badge badgeContent={cartCount} 
+                  color="error">
+                    <ShoppingCartIcon sx={{color: "#fff"}} />
+                  </Badge>
+                </IconButton>
+              </NavLink>
+            ) : null}
           </Box>
         </Toolbar>
       </AppBar>

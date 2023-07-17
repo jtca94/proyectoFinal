@@ -24,6 +24,7 @@ const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
   localStorage.removeItem("userName");
+  localStorage.removeItem("cart");
 };
 
   return <AuthContext.Provider value={{login, logout, token, user, userName}}>

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import {BrowserRouter} from "react-router-dom";
-import UserContextProvider from "./context/UserContext.jsx";
+import CartContextProvider from "./context/CartContext.jsx";
 import {ThemeProvider, createTheme} from "@mui/material/styles";
 import {AuthProvider} from "./context/AuthContext.jsx";
 import {ProductsProvider} from "./context/ProductsContext.jsx";
@@ -13,29 +13,33 @@ export const theme = createTheme({
   palette: {
     primary: {
       main: "#151515",
-      alternative: "#001d3d",
+      alternative: "#00ff00",
     },
     secondary: {
       main: "#ffc300",
     },
     custom: {
-      darkBlue: "#000814",
-      blue: "#003566",
+      lightGreen: "#DFF8D5",
+      lightBlue: "#00D0B2",
+      greyGreen: "#8BAF7F",
+      blue: "#004C73",
       yellow: "#ffd60a",
       purple: "#3d0079",
       lightPurple: "#E6E6FA",
     },
+    error: {
+      main: "#ff0000",
+    },
   },
   typography: {
-    fontFamily:
-      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
+    fontFamily: "Space Grotesk, sans-serif",
   },
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <UserContextProvider>
+      <CartContextProvider>
         <AuthProvider>
           <ProductsProvider>
             <CssBaseline />
@@ -44,7 +48,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             </ThemeProvider>
           </ProductsProvider>
         </AuthProvider>
-      </UserContextProvider>
+      </CartContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

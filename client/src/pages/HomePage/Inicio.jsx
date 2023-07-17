@@ -1,4 +1,4 @@
-import {Box, Container, Typography, Grid} from "@mui/material";
+import {Box, Container, Typography} from "@mui/material";
 import {Splide, SplideSlide} from "@splidejs/react-splide";
 import "@splidejs/splide/css";
 import slide1 from "../../images/slide1.jpg";
@@ -7,16 +7,11 @@ import slide3 from "../../images/slide3.jpg";
 import slide4 from "../../images/slide4.jpg";
 import slide5 from "../../images/slide5.jpg";
 import ProductsSlide from "../../components/Home/ProductsSlide";
-import ArticlesHome from "../../components/Home/articlesHome";
-
 
 const Inicio = () => {
-
-
-
+ 
   return (
     <>
-    
       <Container disableGutters maxWidth="false">
         <Splide
         //ignorar css
@@ -189,7 +184,6 @@ const Inicio = () => {
         </Splide>
       </Container>
       <ProductsSlide />
-      <ArticlesHome></ArticlesHome>
       
     </>
   );

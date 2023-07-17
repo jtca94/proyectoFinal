@@ -5,6 +5,7 @@ export const ProductsContext = createContext();
 
 export const ProductsProvider = ({children}) => {
   const [products, setProducts] = useState([]);
+
   useEffect(() => {
     getProducts();
   }, []);
@@ -17,6 +18,9 @@ export const ProductsProvider = ({children}) => {
           "Content-Type": "application/json",
         },
       });
+      if (!res.ok) {
+        throw new Error("Error al obtener los productos");
+      }
       const data = await res.json();
       setProducts(data.products);
     } catch (error) {
@@ -25,7 +29,7 @@ export const ProductsProvider = ({children}) => {
   };
 
   return (
-    <ProductsContext.Provider value={{products}}>
+    <ProductsContext.Provider value={{products, getProducts}}>
       {children}
     </ProductsContext.Provider>
   );

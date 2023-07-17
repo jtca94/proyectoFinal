@@ -12,7 +12,3 @@ export const add = async (req, res) => {
         return res.status(status).json({ok: false, message: message});
     }
 };
-
-export const orderControllers = {
-    add
-};

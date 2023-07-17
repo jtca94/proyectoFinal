@@ -6,7 +6,6 @@ export const verifyNewUser = async (req, res, next) => {
             throw new Error("Missing fields");
         }
         const user = await userNotTaken(userName);
-        console.log(user);
         next();
     } catch (error) {
         return res.status(500).json({ok: false, message: error.message});
