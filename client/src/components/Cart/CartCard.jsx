@@ -5,13 +5,14 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
 const CartCard = () => {
-  const {cart, handleRemoveFromCart, handleAddToCart} = useContext(CartContext);
+  const {cart, handleRemoveFromCart, handleAddToCart, handleClearItem} = useContext(CartContext);
   return (
     <>
       {cart.map((item) => (
         <Grid
           spacing={3}
           container
+          // add DOM remove transition
           sx={{
             alignItems: "center",
             my: 3,
@@ -97,6 +98,19 @@ const CartCard = () => {
             <Typography textAlign="center" variant="h5" fontWeight="bold">
               ${parseInt(item.price * item.quantity).toLocaleString("cl-CL")}
             </Typography>
+            <Button
+              variant="outlined"
+              color="error"
+              sx={{
+                mt: 2,
+                mx: "auto",
+              }}
+              onClick={() => {
+                handleClearItem(item);
+              }}
+            >
+              Eliminar
+            </Button>
           </Grid>
         </Grid>
       ))}

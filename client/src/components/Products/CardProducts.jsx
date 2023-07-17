@@ -102,7 +102,7 @@ const CardProducts = (props) => {
 export default CardProducts;
 
 CardProducts.propTypes = {
-  to: PropTypes.string.isRequired,
+  to: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,

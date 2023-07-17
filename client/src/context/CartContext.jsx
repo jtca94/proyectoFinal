@@ -58,6 +58,12 @@ export default function CartContextProvider({children}) {
     }
   };
 
+  const handleClearItem = (product) => {
+    const newCart = cart.filter((item) => item.id !== product.id);
+    setCart(newCart);
+    localStorage.setItem("cart", JSON.stringify(newCart));
+  };
+
   useEffect(() => {
     const cartStorage = localStorage.getItem("cart");
     if (cartStorage) {
@@ -67,7 +73,7 @@ export default function CartContextProvider({children}) {
 
   return (
     <CartContext.Provider
-      value={{cart, handleAddToCart, handleRemoveFromCart, total, cartCount}}
+      value={{cart, handleAddToCart, handleRemoveFromCart, handleClearItem, total, cartCount}}
     >
       {children}
     </CartContext.Provider>
