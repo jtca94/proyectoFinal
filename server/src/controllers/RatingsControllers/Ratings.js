@@ -1,12 +1,10 @@
 import { addRating } from "../../models/RatingsModels/addRating.js"
 import { handleErrors } from "../../middlewares/handleErrors.js";
 
-export const add = async (req, res) => {
+export const setRating = async (req, res) => {
     try {
-        
         const { userid, rating, comment } = req.body;
         const { productid } = req.params;
-
         addRating(userid, productid, rating, comment);
         return res.status(200).json({ok: true, message: "Add order successfully"});
     } catch (error) {
@@ -16,5 +14,5 @@ export const add = async (req, res) => {
 };
 
 export const ratingControllers = {
-    add
+    setRating
 };

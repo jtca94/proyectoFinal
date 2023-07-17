@@ -1,7 +1,7 @@
-import { pool } from "../../../database/config.js";
+import {pool} from "../../../database/config.js";
 
 export const allProducts = async () => {
-    const text = "SELECT * FROM products";
-    const { rows } = await pool.query(text);
-    return rows;
-    }
+  const text = "SELECT * FROM products";
+  const {rows} = await pool.query(text);
+  return rows;
+};
