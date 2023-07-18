@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
-import UserArticles from "../../../components/UserArticles/userArticles";
+import UserArticles from "../../../components/Dashboard/userArticles";
 import {AuthContext} from "../../../context/AuthContext";
 
 const MyProducts = () => {

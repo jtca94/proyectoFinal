@@ -9,8 +9,9 @@ export const verifyDeleteProduct = async (req, res, next) => {
         if (rows.length === 0) {
             return res.status(404).json({ok: false, message: "Product not found"});
         }
-        if (rows[0].user_id !== userId) {
-            return res.status(401).json({ok: false, message: "Unauthorized"});
+        console.log(rows[0])
+        if (rows[0].userid !== userId) {
+            return res.status(401).json({ok: false, message: "no tienes permisos para eliminar este producto"});
         }
         next();
     } catch (error) {
