@@ -12,6 +12,7 @@ import {verifyNewUser} from "../middlewares/verifyNewUser.js";
 import {verifyCredentials} from "../middlewares/verifyCredentials.js";
 import {verifyNewProduct} from "../middlewares/verifyNewProduct.js";
 import {verifyToken} from "../middlewares/verifyToken.js";
+import { verifyDeleteProduct } from "../middlewares/verifyDeleteProduct.js";
 
 const routes = Router();
 
@@ -25,5 +26,7 @@ routes.post("/ratings/:productid", verifyRatings, verifyToken, ratingControllers
 routes.get("/productsByUser", verifyToken, productControllers.UserProducts);
 routes.get("/products", productControllers.getProducts);
 routes.get("/products/:id", productControllers.getOneProduct);
+//DELETE ROUTES
+routes.delete("/products/:id", verifyToken, verifyDeleteProduct, productControllers.removeProduct);
 
 export default routes;

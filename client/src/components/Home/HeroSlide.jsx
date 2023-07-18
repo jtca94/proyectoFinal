@@ -19,10 +19,10 @@ const HeroSlide = () => {
           rewind: true,
           drag: true,
           type: "loop",
-          width: "100%",
           perPage: 1,
           perMove: 1,
-          height: "80vh",
+          height: "80vh", 
+          width: "100%",
           autoplay: true,
           pagination: false,
         }}
