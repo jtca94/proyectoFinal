@@ -3,7 +3,7 @@ import {Router} from "express";
 import {userControllers} from "../controllers/UserControllers/Users.js";
 import {productControllers} from "../controllers/ProductsControllers/products.js";
 import {orderControllers} from "../controllers/OrderControllers/Orders.js";
-import { ratingControllers } from "../controllers/RatingsControllers/Ratings.js";
+import {ratingControllers} from "../controllers/RatingsControllers/Ratings.js";
 //middlewares
 import {passwordHash} from "../middlewares/passwordHash.js";
 import {verifyOrders} from "../middlewares/verifyOrders.js";
@@ -27,7 +27,7 @@ routes.get("/productsByUser", verifyToken, productControllers.UserProducts);
 routes.get("/products", productControllers.getProducts);
 routes.get("/products/:id", productControllers.getOneProduct);
 routes.get("/orders", verifyToken, verifyOrders.get, orderControllers.getOrders);
-routes.get("/ratings/:productid", verifyRatings.get, ratingControllers.allRatings);
+routes.get("/ratings/:productid", ratingControllers.allRatings);
 //DELETE ROUTES
 routes.delete("/ratings", verifyToken, verifyRatings.Delete, ratingControllers.removeRating)
 
