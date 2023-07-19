@@ -2,7 +2,8 @@ import {addProduct} from "../../models/ProductModels/getUser/addProduct.js";
 import {getUserProducts} from "../../models/ProductModels/getUser/userProducts.js";
 import {allProducts} from "../../models/ProductModels/getUser/allProducts.js";
 import {oneProduct} from "../../models/ProductModels/getUser/oneProduct.js";
-//recordad verificar que el usuario existe al agregar producto
+import {deleteProduct} from "../../models/ProductModels/getUser/deleteProduct.js";
+//recordar verificar que el usuario existe al agregar producto
 export const createProduct = async (req, res) => {
   try {
     const {name, description, price, category, stock, image, userId} = req.body;
@@ -14,7 +15,7 @@ export const createProduct = async (req, res) => {
     return res.status(500).json({ok: false, message: error.message});
   }
 };
-
+// 
 export const UserProducts = async (req, res) => {
   try {
     const {userId} = req.body.payload;
@@ -44,9 +45,20 @@ export const getOneProduct = async (req, res) => {
   }
 };
 
+export const removeProduct = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const product = await deleteProduct(id);
+    return res.status(200).json({ok: true, product});
+  } catch (error) {
+    return res.status(500).json({ok: false, message: error.message});
+  }
+};
+
 export const productControllers = {
   createProduct,
   UserProducts,
   getProducts,
   getOneProduct,
+  removeProduct,
 };

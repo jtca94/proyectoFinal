@@ -1,3 +1,5 @@
+import {Grid, Box, Typography, Snackbar, Alert} from "@mui/material";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 import {useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
 import DetailProductId from "../../components/Products/DetailProductId";
@@ -10,6 +12,7 @@ const DetailProduct = () => {
   const { userName } = useContext(AuthContext);
   const [singleProduct, setSingleProduct] = useState([]);
   const [checkID, setCheckID] = useState(false);
+  const [open, setOpen] = useState(false);
   const {id} = useParams();
   useEffect(() => {
     getProduct(id);
@@ -34,6 +37,21 @@ const DetailProduct = () => {
     <>
       {checkID ? (
         <>
+          <Snackbar
+            anchorOrigin={{vertical: "top", horizontal: "right"}}
+            open={open}
+            sx={{marginTop: "4rem"}}
+            autoHideDuration={6000}
+            onClose={() => setOpen(false)}
+          >
+            <Alert
+              onClose={() => setOpen(false)}
+              severity="success"
+              sx={{width: "100%"}}
+            >
+              Producto añadido al carrito
+            </Alert>
+          </Snackbar>
           <DetailProductId
             id={singleProduct.id}
             image={singleProduct.image}
@@ -42,6 +60,7 @@ const DetailProduct = () => {
             description={singleProduct.description}
             price={singleProduct.price}
             stock={singleProduct.stock}
+            setOpen={setOpen}
           />
           
           {userName ? <RatingForm></RatingForm> : null}

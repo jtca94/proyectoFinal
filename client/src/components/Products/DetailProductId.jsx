@@ -2,25 +2,31 @@
 import {Grid, Container, Box, Button, Typography} from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {CartContext} from "../../context/CartContext";
+import {AuthContext} from "../../context/AuthContext";
 import {useContext} from "react";
 import {useNavigate} from "react-router-dom";
 import PropTypes from "prop-types";
 
 const DetailProductId = (props) => {
   const {handleAddToCart} = useContext(CartContext);
+  const {user} = useContext(AuthContext);
   const navigate = useNavigate();
-
 
   return (
     <Container maxWidth="lg" sx={{mt: 15, mb: 15}}>
       <Grid container justifyContent="center" spacing={5}>
         <Grid item xs={12} sm={12} md={6} sx={{my: "auto"}}>
-           <Box
-              component="img"
-              src={props.image}
-              alt={props.name}
-              sx={{width: "100%", objectFit: "cover", borderRadius: "1rem", boxShadow: "0 0 10px rgba(0,0,0,0.5)"}}
-            />
+          <Box
+            component="img"
+            src={props.image}
+            alt={props.name}
+            sx={{
+              width: "100%",
+              objectFit: "cover",
+              borderRadius: "1rem",
+              boxShadow: "0 0 10px rgba(0,0,0,0.5)",
+            }}
+          />
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
           <Grid container display="flex" flexDirection="column" gap={6}>
@@ -41,7 +47,13 @@ const DetailProductId = (props) => {
                 borderRadius={5}
                 display="inline"
                 justifyContent="center"
-                sx={{paddingInline: "1rem", paddingBlock: "0.5rem", backgroundColor: "#f50057", color: "#fff", boxShadow: "0 0 10px rgba(0,0,0,0.5)"}}
+                sx={{
+                  paddingInline: "1rem",
+                  paddingBlock: "0.5rem",
+                  backgroundColor: "#f50057",
+                  color: "#fff",
+                  boxShadow: "0 0 10px rgba(0,0,0,0.5)",
+                }}
               >
                 {props.category}
               </Typography>
@@ -58,13 +70,14 @@ const DetailProductId = (props) => {
             {/* PRECIO DE ARTÍCULO */}
             <Box justifyContent="end">
               <Typography variant="h3" fontWeight="bold">
-                ${parseInt(props.price).toLocaleString("de-De", {
+                $
+                {parseInt(props.price).toLocaleString("de-De", {
                   style: "currency",
                   currency: "CLP",
                 })}
               </Typography>
             </Box>
-            {/* BOTONES CONTACTO Y COMPRA */}
+            {/* BOTONES VOLVER Y COMPRA */}
             <Grid
               container
               display="flex"
@@ -93,10 +106,14 @@ const DetailProductId = (props) => {
                   variant="contained"
                   color="secondary"
                   startIcon={<ShoppingCartIcon />}
-                  onClick={()=>{ handleAddToCart(props)}}
+                  onClick={() => {
+                    user
+                      ? (handleAddToCart(props), props.setOpen(true))
+                      : navigate("/login");
+                  }}
                   sx={{
                     borderRadius: 5,
-                    boxShadow: "0 0 10px rgba(0,0,0,0.5)",                 
+                    boxShadow: "0 0 10px rgba(0,0,0,0.5)",
                   }}
                 >
                   AGREGAR AL CARRITO
@@ -120,4 +137,5 @@ DetailProductId.propTypes = {
   image: PropTypes.string.isRequired,
   stock: PropTypes.number.isRequired,
   id: PropTypes.number.isRequired,
+  setOpen: PropTypes.func.isRequired,
 };

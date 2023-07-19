@@ -7,13 +7,14 @@ import CardHome from "./Card";
 export const ProductsSlide = () => {
   const {products} = useContext(ProductsContext);
   return (
-    <Container maxWidth="xl" sx={{height: "100vh"}}>
+    <Container align="center" maxWidth="false" sx={{my: 3, py:3}}>
       <Typography
-        fontWeight={400}
+        fontWeight={600}
         variant="h3"
         align="center"
+        fontStyle="italic"
         sx={{
-          color: "custom.purple",
+          color: "#00ff00",
           my: 2,
           mb: 5,
           textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
@@ -24,7 +25,6 @@ export const ProductsSlide = () => {
       <Splide
         options={{
           clickable: true,
-          padding: {right: "5rem", left: "5rem"},
           pagination: false,
           speed: 800,
           gap: "2rem",

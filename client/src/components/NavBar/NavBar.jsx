@@ -19,9 +19,9 @@ import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
 import {useContext} from "react";
 import {AuthContext} from "../../context/AuthContext";
 import {CartContext} from "../../context/CartContext";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import logo from "../../images/logo3.png";
-import { Badge } from "@mui/material";
+import {Badge} from "@mui/material";
 
 const drawerWidth = 240;
 const navItems = [
@@ -169,8 +169,7 @@ function NavBar(props) {
                 className={({isActive}) => (isActive ? "active" : "inactive")}
               >
                 <IconButton>
-                  <Badge badgeContent={cartCount} 
-                  color="error">
+                  <Badge badgeContent={cartCount} color="error">
                     <ShoppingCartIcon sx={{color: "#fff"}} />
                   </Badge>
                 </IconButton>

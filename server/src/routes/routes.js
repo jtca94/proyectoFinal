@@ -7,11 +7,12 @@ import { ratingControllers } from "../controllers/RatingsControllers/Ratings.js"
 //middlewares
 import {passwordHash} from "../middlewares/passwordHash.js";
 import {verifyOrders} from "../middlewares/verifyOrders.js";
-import { verifyRatings } from "../middlewares/verifyRatings.js";
+import {verifyRatings} from "../middlewares/verifyRatings.js";
 import {verifyNewUser} from "../middlewares/verifyNewUser.js";
 import {verifyCredentials} from "../middlewares/verifyCredentials.js";
 import {verifyNewProduct} from "../middlewares/verifyNewProduct.js";
 import {verifyToken} from "../middlewares/verifyToken.js";
+import { verifyDeleteProduct } from "../middlewares/verifyDeleteProduct.js";
 
 const routes = Router();
 
