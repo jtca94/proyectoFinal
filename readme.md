@@ -129,6 +129,7 @@ password: 123123123
 - /dashboard/products/myprod
 - /dashboard/products/sellprod
 - /dashboard/products/mycart
+- /*
 
 
 

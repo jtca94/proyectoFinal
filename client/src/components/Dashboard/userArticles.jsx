@@ -38,7 +38,6 @@ const UserArticles = ({name, price, image, category, stock, id}) => {
       console.log(error);
     }
   };
-
   return (
     <Grid container sx={{mt: 3}}>
       <Dialog

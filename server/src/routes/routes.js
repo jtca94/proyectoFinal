@@ -30,5 +30,6 @@ routes.get("/orders", verifyToken, verifyOrders.get, orderControllers.getOrders)
 routes.get("/ratings/:productid", ratingControllers.allRatings);
 //DELETE ROUTES
 routes.delete("/ratings", verifyToken, verifyRatings.Delete, ratingControllers.removeRating)
+routes.delete("/products/:id", verifyToken, verifyDeleteProduct, productControllers.removeProduct);
 
 export default routes;
