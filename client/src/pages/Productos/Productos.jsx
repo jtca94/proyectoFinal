@@ -41,7 +41,7 @@ const Productos = () => {
                   category={product.category}
                   description={product.description}
                   price={product.price}
-                  to={product.id}
+                  to={(product.id).toString()}
                 />
               </Grid>
             ))}

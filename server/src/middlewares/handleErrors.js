@@ -11,6 +11,11 @@ export const handleErrors = (code) => {
         status: "400",
         message: "Formato no válido en el parámetro",
       };
+      case "22003":
+      return {
+        status: "400",
+        message: "Datos no existen",
+      };
     case "404":
       return {
         status: 404,

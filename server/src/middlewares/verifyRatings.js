@@ -1,4 +1,16 @@
-export const verifyRatings = (req, res, next) => {
+const get = (req, res, next) => {
+  try {
+    const {productid} = req.params;
+    if (!productid) {
+      throw new Error("All fields are required");
+    }
+    next();
+  } catch (error) {
+    return res.status(500).json({ok: false, message: error.message});
+  }
+};
+
+const post = (req, res, next) => {
   try {
     const {userid, rating, comment} = req.body;
     const {productid} = req.params;
@@ -9,4 +21,22 @@ export const verifyRatings = (req, res, next) => {
   } catch (error) {
     return res.status(500).json({ok: false, message: error.message});
   }
+};
+
+const Delete = (req, res, next) => {
+  try {
+    const { ratingId } = req.body;
+    if (!ratingId) {
+      throw new Error("All fields are required");
+    }
+    next();
+  } catch (error) {
+    return res.status(500).json({ok: false, message: error.message});
+  }
+};
+
+export const verifyRatings = {
+  get,
+  post,
+  Delete
 };
