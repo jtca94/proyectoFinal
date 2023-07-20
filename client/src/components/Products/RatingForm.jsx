@@ -28,6 +28,8 @@ const RatingForm = ({productId}) => {
 
   const [rating, setRating] = useState(0);
   const [open, setOpen] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const formik = useFormik({
     initialValues: {
@@ -51,20 +53,27 @@ const RatingForm = ({productId}) => {
         const data = await res.json();
         if (data.ok === true) {
           setOpen(true);
+          formik.resetForm();
+          setRating(0);
+        } else {
+          throw new Error(data.message);
         }
       } catch (error) {
-        console.log(error.message);
+        console.log(error);
+        setError(true);
+        setErrorMessage(error.message);
+        formik.resetForm();
       }
     },
   });
 
   return (
-    <Container sx={{marginBottom: 10}}>
+    <Container sx={{marginBottom: 5}}>
       <Grid container>
         {/* Alert al agregar calificación */}
         <Snackbar
           open={open}
-          autoHideDuration={2000}
+          autoHideDuration={4000}
           onClose={() => setOpen(false)}
           anchorOrigin={{vertical: "top", horizontal: "center"}}
           size="large"
@@ -77,7 +86,6 @@ const RatingForm = ({productId}) => {
             califica este producto
           </Typography>
         </Grid>
-
         <Grid
           item
           xs={12}
@@ -89,6 +97,7 @@ const RatingForm = ({productId}) => {
             textTransform="uppercase"
             variant="subtitle2"
             fontWeight="bold"
+            sx={{mb: 1}}
           >
             POR {userName}
           </Typography>
@@ -109,6 +118,7 @@ const RatingForm = ({productId}) => {
               formik.setFieldValue("rating", newValue);
               setRating(newValue);
             }}
+            sx={{mb: 1}}
             emptyIcon={<StarBorderIcon fontSize="inherit" />}
             icon={<StarIcon fontSize="inherit" />}
           />
@@ -145,6 +155,7 @@ const RatingForm = ({productId}) => {
               </Grid>
               <Grid
                 display="flex"
+                flexDirection="column"
                 justifyContent="center"
                 alignItems="center"
                 item
@@ -162,10 +173,18 @@ const RatingForm = ({productId}) => {
                   type="submit"
                   variant="contained"
                   color="secondary"
+                  disabled={formik.isSubmitting || error}
                   onClick={formik.handleSubmit}
+                  xs={12}
                 >
                   Enviar
                 </Button>
+                <Alert
+                  severity="error"
+                  sx={{display: error ? "flex" : "none", width: "100%", mb: 3}}
+                >
+                  {errorMessage}
+                </Alert>
               </Grid>
             </Grid>
           </form>
@@ -178,5 +197,5 @@ const RatingForm = ({productId}) => {
 export default RatingForm;
 
 RatingForm.propTypes = {
-  productId: PropTypes.string.isRequired,
+  productId: PropTypes.number.isRequired,
 };

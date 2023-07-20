@@ -11,7 +11,7 @@ export const setRating = async (req, res) => {
     const setRating = addRating(userId, productid, rating, comment);
     return res
       .status(200)
-      .json({ok: true, message: "order added successfully", setRating});
+      .json({ok: true, message: "Rating set successfuly", setRating});
   } catch (error) {
     return res.status(500).json({ok: false, message: error.message});
   }

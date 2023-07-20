@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom";
 import DetailProductId from "../../components/Products/DetailProductId";
 import NotFound from "../404/404.jsx";
 import RatingForm from "../../components/Products/RatingForm";
+import AllRatings from "../../components/Products/AllRatings";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 
@@ -62,7 +63,8 @@ const DetailProduct = () => {
             stock={singleProduct.stock}
             setOpen={setOpen}
           />
-          {userName ? <RatingForm productId={singleProduct.id.toString()} /> : null} 
+          {userName ? <RatingForm productId={singleProduct.id} /> : null} 
+          <AllRatings productId={singleProduct.id} />
         </>
       ) : (
         <NotFound />

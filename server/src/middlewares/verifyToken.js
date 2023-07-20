@@ -8,7 +8,6 @@ export const verifyToken = (req, res, next) => {
       throw new Error("Unauthorized");
     }
     req.body.payload = payload;
-    console.log(payload);
     next();
   } catch (error) {
     return res.status(401).json({ok: false, message: "Unauthorized"});
