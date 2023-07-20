@@ -13,7 +13,7 @@ const DetailProductId = (props) => {
   const navigate = useNavigate();
 
   return (
-    <Container maxWidth="lg" sx={{mt: 15, mb: 15}}>
+    <Container maxWidth="lg" sx={{mt: 15, mb: 5}}>
       <Grid container justifyContent="center" spacing={5}>
         <Grid item xs={12} sm={12} md={6} sx={{my: "auto"}}>
           <Box

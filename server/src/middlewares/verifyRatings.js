@@ -1,8 +1,10 @@
 export const verifyRatings = (req, res, next) => {
 
   try {
-    const {userid, rating, comment, productid} = req.body;
-    if (!userid || !productid || !rating || !comment) {
+    const {rating, comment} = req.body;
+    const {productid} = req.params;
+    const {userId} = req.body.payload;
+    if (!userId || !productid || !rating || !comment) {
       throw new Error("All fields are required");
     }
     next();

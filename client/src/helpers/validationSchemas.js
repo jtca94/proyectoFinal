@@ -78,6 +78,16 @@ export const newProductValidationSchema = yup.object({
         .max(3000, 'La descripción del producto debe tener como máximo 3000 caracteres'),
     });
     
+export const ratingValidationSchema = yup.object({
+    rating: yup
+        .number('Ingresa la calificación del producto')
+        .required('La calificación del producto es requerida'),
+    comment: yup
+        .string('Ingresa el comentario del producto')
+        .required('El comentario del producto es requerido')
+        .min(10, 'El comentario del producto debe tener al menos 10 caracteres')
+        .max(3000, 'El comentario del producto debe tener como máximo 3000 caracteres'),
+    });
 
         
 
