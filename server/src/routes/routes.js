@@ -21,7 +21,7 @@ routes.post("/register", verifyNewUser, passwordHash, userControllers.newUser);
 routes.post("/login", verifyCredentials, userControllers.LoginUser);
 routes.post("/products", verifyNewProduct, productControllers.createProduct);
 routes.post('/orders',verifyOrders.post, verifyToken, orderControllers.newOrder );
-routes.post('/products/:productid/ratings', verifyToken, ratingControllers.setRating);
+routes.post('/products/:productid/ratings', verifyToken, verifyRatings.post, ratingControllers.setRating);
 //GET ROUTES
 routes.get("/productsByUser", verifyToken, productControllers.UserProducts);
 routes.get("/products", productControllers.getProducts);
