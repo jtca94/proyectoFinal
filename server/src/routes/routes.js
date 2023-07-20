@@ -21,13 +21,13 @@ routes.post("/register", verifyNewUser, passwordHash, userControllers.newUser);
 routes.post("/login", verifyCredentials, userControllers.LoginUser);
 routes.post("/products", verifyNewProduct, productControllers.createProduct);
 routes.post('/orders',verifyOrders.post, verifyToken, orderControllers.newOrder );
-routes.post('/ratings/:productid', verifyToken, verifyRatings.post, ratingControllers.setRating);
+routes.post('/products/:productid/ratings', verifyToken, ratingControllers.setRating);
 //GET ROUTES
 routes.get("/productsByUser", verifyToken, productControllers.UserProducts);
 routes.get("/products", productControllers.getProducts);
 routes.get("/products/:id", productControllers.getOneProduct);
 routes.get("/orders", verifyToken, verifyOrders.get, orderControllers.getOrders);
-routes.get("/ratings/:productid", verifyRatings.get, ratingControllers.allRatings);
+routes.get("/products/:productid/ratings", verifyRatings.get, ratingControllers.allRatings);
 //DELETE ROUTES
 routes.delete("/ratings", verifyToken, verifyRatings.Delete, ratingControllers.removeRating)
 routes.delete("/products/:id", verifyToken, verifyDeleteProduct, productControllers.removeProduct);

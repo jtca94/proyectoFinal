@@ -1,6 +1,4 @@
-{
-  /* MUI */
-}
+// MUI
 import {
   Grid,
   Container,
@@ -13,96 +11,68 @@ import {
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-{
-  /* React */
-}
-import { useState, useContext } from "react";
-import { useParams } from "react-router-dom";
-{
-  /* Información del usuario */
-}
-import { AuthContext } from "../../context/AuthContext";
+// Formik
+import {useFormik} from "formik";
+import {ratingValidationSchema} from "../../helpers/validationSchemas";
+// React
+import {useState} from "react";
+import {useContext} from "react";
+// Context
+import {AuthContext} from "../../context/AuthContext";
+// PropTypes
+import PropTypes from "prop-types";
 
-const RatingForm = () => {
-  const { token, user, userName } = useContext(AuthContext);
-  const { id: productid } = useParams();
+const RatingForm = ({productId}) => {
+  const {userName} = useContext(AuthContext);
+  const {token} = useContext(AuthContext);
+
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
   const [open, setOpen] = useState(false);
 
-  const handleInputComment = (event) => {
-    setComment(event.target.value);
-  };
-
-  const handleChange = (event, newRating) => {
-    setRating(newRating);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    setRating(0);
-    setComment("");
-
-    // Código para enviar los datos al servidor utilizando fetch
-    const data = {
-      userid: parseInt(user),
-      productid: parseInt(productid),
-      rating: rating,
-      comment: comment,
-    };
-
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/ratings/${productid}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(data),
+  const formik = useFormik({
+    initialValues: {
+      rating: 0,
+      comment: "",
+    },
+    validationSchema: ratingValidationSchema,
+    onSubmit: async (values) => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/products/${productId}/ratings`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(values),
+          }
+        );
+        const data = await res.json();
+        if (data.ok === true) {
+          setOpen(true);
         }
-      ).then((response) => {
-        if (response.ok) {
-          console.log("La solicitud se pudo enviar correctamente");
-        } else {
-          throw new Error("Error al enviar la solicitud");
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
-
-    setOpen(true);
-  };
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
+  });
 
   return (
-    <Container sx={{ marginBottom: 15 }}>
+    <Container sx={{marginBottom: 10}}>
       <Grid container>
-        <Grid item xs={12} sm={12} md={12} lg={12}>
-          {/* Alert al agregar calificación */}
-          <Snackbar
-            open={open}
-            autoHideDuration={1500}
-            onClose={() => setOpen(false)}
-            anchorOrigin={{ vertical: "top", horizontal: "center" }}
-            size="large"
-            sx={{ mt: 10 }}
-          >
-            <Alert severity="success">Calificación enviada con éxito</Alert>
-          </Snackbar>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={12}
-          md={12}
-          lg={12}
-          marginBottom={2}
-          display="flex"
-          justifyContent="start"
+        {/* Alert al agregar calificación */}
+        <Snackbar
+          open={open}
+          autoHideDuration={2000}
+          onClose={() => setOpen(false)}
+          anchorOrigin={{vertical: "top", horizontal: "center"}}
+          size="large"
+          sx={{mt: 10}}
         >
+          <Alert severity="success">Calificación enviada con éxito</Alert>
+        </Snackbar>
+        <Grid item marginBottom={2} display="flex" justifyContent="start">
           <Typography textTransform="uppercase" variant="h5" fontWeight="bold">
             califica este producto
           </Typography>
@@ -111,9 +81,6 @@ const RatingForm = () => {
         <Grid
           item
           xs={12}
-          sm={12}
-          md={12}
-          lg={12}
           display="flex"
           justifyContent="start"
           alignItems="center"
@@ -130,9 +97,6 @@ const RatingForm = () => {
         <Grid
           item
           xs={12}
-          sm={12}
-          md={12}
-          lg={12}
           display="flex"
           justifyContent="start"
           alignItems="center"
@@ -140,8 +104,11 @@ const RatingForm = () => {
           <Rating
             required
             name="rating"
-            value={rating}
-            onChange={handleChange}
+            value={formik.values.rating}
+            onChange={(event, newValue) => {
+              formik.setFieldValue("rating", newValue);
+              setRating(newValue);
+            }}
             emptyIcon={<StarBorderIcon fontSize="inherit" />}
             icon={<StarIcon fontSize="inherit" />}
           />
@@ -153,24 +120,27 @@ const RatingForm = () => {
             ({rating})
           </Typography>
         </Grid>
-
         <Grid item xs={12}>
-          <form onSubmit={handleSubmit}>
-            <Grid container>
-              <Grid item
-                xs={12}
-                sm={12}
-                md={9}
-                lg={9}>
+          <form>
+            <Grid sx={{flexDirection: "column"}} container>
+              <Grid item xs={12} md={6}>
                 <TextField
                   label="ESCRIBE TU CALIFICACIÓN"
                   fullWidth
                   required
                   margin="normal"
                   multiline
-                  rows={2}
-                  value={comment}
-                  onChange={handleInputComment}
+                  rows={4}
+                  value={formik.values.comment}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  name="comment"
+                  variant="outlined"
+                  placeholder="Escribe tu comentario"
+                  error={
+                    formik.touched.comment && Boolean(formik.errors.comment)
+                  }
+                  helperText={formik.touched.comment && formik.errors.comment}
                 />
               </Grid>
               <Grid
@@ -179,21 +149,20 @@ const RatingForm = () => {
                 alignItems="center"
                 item
                 xs={12}
-                sm={6}
                 md={6}
-                lg={3}
               >
                 <Button
                   sx={{
                     borderRadius: ".5rem",
-                    width: "90%",
-                    height: "70%",
+                    width: "100%",
                     fontWeight: "bold",
-                    fontSize: "1rem",
+                    my: 2,
                   }}
+                  size="large"
                   type="submit"
                   variant="contained"
                   color="secondary"
+                  onClick={formik.handleSubmit}
                 >
                   Enviar
                 </Button>
@@ -207,3 +176,7 @@ const RatingForm = () => {
 };
 
 export default RatingForm;
+
+RatingForm.propTypes = {
+  productId: PropTypes.string.isRequired,
+};

@@ -1,5 +1,4 @@
-import {Grid, Box, Typography, Snackbar, Alert} from "@mui/material";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
+import {Snackbar, Alert} from "@mui/material";
 import {useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
 import DetailProductId from "../../components/Products/DetailProductId";
@@ -14,6 +13,7 @@ const DetailProduct = () => {
   const [checkID, setCheckID] = useState(false);
   const [open, setOpen] = useState(false);
   const {id} = useParams();
+
   useEffect(() => {
     getProduct(id);
   }, [id]);
@@ -62,9 +62,7 @@ const DetailProduct = () => {
             stock={singleProduct.stock}
             setOpen={setOpen}
           />
-          
-          {userName ? <RatingForm></RatingForm> : null}
-          
+          {userName ? <RatingForm productId={singleProduct.id.toString()} /> : null} 
         </>
       ) : (
         <NotFound />

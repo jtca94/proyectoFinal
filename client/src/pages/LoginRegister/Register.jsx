@@ -54,14 +54,12 @@ const Register = () => {
       });
       const data = await res.json();
       if (data.ok === true) {
-        console.log(data);
         handleOpen();
         setTimeout(() => {
           navigate("/login");
         }, 1500);
       }
       else {
-        console.log(data);
         setMessage(data.message);
         handleError();
       }

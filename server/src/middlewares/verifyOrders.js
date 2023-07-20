@@ -24,5 +24,5 @@ const get = (req, res, next) => {
 
 export const verifyOrders = {
   post,
-  get
+  get,
 };

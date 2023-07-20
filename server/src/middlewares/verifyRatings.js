@@ -12,9 +12,10 @@ const get = (req, res, next) => {
 
 const post = (req, res, next) => {
   try {
-    const {userid, rating, comment} = req.body;
+    const {rating, comment} = req.body;
     const {productid} = req.params;
-    if (!userid || !productid || !rating || !comment) {
+    const {userId} = req.body.payload;
+    if (!userId || !productid || !rating || !comment) {
       throw new Error("All fields are required");
     }
     next();
