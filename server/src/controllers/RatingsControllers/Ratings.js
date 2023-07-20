@@ -6,9 +6,9 @@ import {handleErrors} from "../../middlewares/handleErrors.js";
 export const setRating = async (req, res) => {
   try {
     const {rating, comment} = req.body;
-    const {userId} = req.body.payload;
+    const {userId, userName} = req.body.payload;
     const {productid} = req.params;
-    const setRating = addRating(userId, productid, rating, comment);
+    const setRating = addRating(userId, productid, rating, comment, userName);
     return res
       .status(200)
       .json({ok: true, message: "Rating set successfuly", setRating});

@@ -23,8 +23,7 @@ import {AuthContext} from "../../context/AuthContext";
 import PropTypes from "prop-types";
 
 const RatingForm = ({productId}) => {
-  const {userName} = useContext(AuthContext);
-  const {token} = useContext(AuthContext);
+  const {userName, token} = useContext(AuthContext);
 
   const [rating, setRating] = useState(0);
   const [open, setOpen] = useState(false);
@@ -55,6 +54,7 @@ const RatingForm = ({productId}) => {
           setOpen(true);
           formik.resetForm();
           setRating(0);
+          window.location.reload();
         } else {
           throw new Error(data.message);
         }
@@ -133,7 +133,7 @@ const RatingForm = ({productId}) => {
         <Grid item xs={12}>
           <form>
             <Grid sx={{flexDirection: "column"}} container>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12}>
                 <TextField
                   label="ESCRIBE TU CALIFICACIÓN"
                   fullWidth
@@ -160,7 +160,6 @@ const RatingForm = ({productId}) => {
                 alignItems="center"
                 item
                 xs={12}
-                md={6}
               >
                 <Button
                   sx={{
@@ -173,7 +172,7 @@ const RatingForm = ({productId}) => {
                   type="submit"
                   variant="contained"
                   color="secondary"
-                  disabled={formik.isSubmitting || error}
+                  disabled={formik.isSubmitting || !formik.isValid}
                   onClick={formik.handleSubmit}
                   xs={12}
                 >

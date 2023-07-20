@@ -14,8 +14,8 @@ const post = (req, res, next) => {
   try {
     const {rating, comment} = req.body;
     const {productid} = req.params;
-    const {userId} = req.body.payload;
-    if (!userId || !productid || !rating || !comment) {
+    const {userId, userName} = req.body.payload;
+    if (!userId || !productid || !rating || !comment || !userName) {
       throw new Error("All fields are required");
     }
     next();

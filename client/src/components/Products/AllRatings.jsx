@@ -1,8 +1,14 @@
-import {useState, useEffect} from "react";
+// React
+import {useEffect, useContext} from "react";
+// proptypes
 import PropTypes from "prop-types";
+// context
+import {RatingsContext} from "../../context/RatingsContext";
+//MUI
+import {Container, Divider, Grid, Rating, Typography} from "@mui/material";
 
 const AllRatings = ({productId}) => {
-  const [ratings, setRatings] = useState([]);
+  const {ratings, setRatings} = useContext(RatingsContext);
 
   useEffect(() => {
     const getRatings = async () => {
@@ -21,22 +27,22 @@ const AllRatings = ({productId}) => {
       }
     };
     getRatings();
-  }, [productId]);
+  }, [productId, setRatings]);
 
   return (
-    <>
-      <h2>Valoraciones</h2>
-      {ratings.length > 0 ? (
-        ratings.map((rating) => (
-          <div key={rating.id}>
-            <p>{rating.comment}</p>
-            <p>{rating.rating}</p>
-          </div>
-        ))
-      ) : (
-        <p>No hay valoraciones</p>
-      )}
-    </>
+  <Container maxWidth="xl" sx={{mt: 2}}>
+    <Typography variant="h3" fontWeight={500} textAlign="center" sx={{mb: 3}}>Comentarios del Producto</Typography>
+    <Grid container sx={{mb: 5}}>
+      {ratings.map((rating) => (
+        <Grid item xs={12} key={rating.id}>
+          <Typography textTransform="uppercase" fontWeight={500} variant="h5">{rating.username}</Typography>
+          <Rating value={rating.rating} precision={0.5} size="large" readOnly />
+          <Typography variant="body1">{rating.comment}</Typography>
+          <Divider sx={{my: 2}} />
+        </Grid>
+      ))}
+    </Grid>
+  </Container>
   );
 };
 
