@@ -9,8 +9,3 @@ export const verifyOrders = (req, res, next) => {
     return res.status(500).json({ok: false, message: error.message});
   }
 };
-
-export const verifyOrders = {
-  post,
-  get,
-};

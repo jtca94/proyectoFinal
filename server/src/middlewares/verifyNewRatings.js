@@ -1,4 +1,4 @@
-export const verifyRatings = (req, res, next) => {
+export const verifyNewRating = (req, res, next) => {
 
   try {
     const {rating, comment} = req.body;
