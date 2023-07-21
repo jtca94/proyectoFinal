@@ -6,7 +6,10 @@
   "main": "src/main.js",
   "scripts": {
     "dev": "nodemon src/main.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "testing": "jest",
+    "test2": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test-exit": "node --experimental-vm-modules node_modules/jest/bin/jest.js --forceExit"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +23,8 @@
     "pg": "^8.11.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "jest": "^29.6.1",
+    "nodemon": "^3.0.1",
+    "supertest": "^6.3.3"
   }
 }
