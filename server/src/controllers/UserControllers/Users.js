@@ -11,7 +11,8 @@ const newUser = async (req, res) => {
       .status(200)
       .json({ok: true, message: "User created successfully"});
   } catch (error) {
-    return res.status(500).json({ok: false, message: error.message});
+    const {status, message} = handleErrors(error.code);
+    return res.status(status).json({ok: false, message: message});
   }
 };
 
@@ -26,7 +27,8 @@ const LoginUser = async (req, res) => {
       .status(200)
       .json({ok: true, message: "User logged in", token, userName, id});
   } catch (error) {
-    return res.status(500).json({ok: false, message: error.message});
+    const {status, message} = handleErrors(error.code);
+    return res.status(status).json({ok: false, message: message});
   }
 };
 

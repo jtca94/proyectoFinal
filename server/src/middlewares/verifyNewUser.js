@@ -10,14 +10,15 @@ export const verifyNewUser = async (req, res, next) => {
       !password ||
       !address
     ) {
-      throw new Error("Missing fields");
+      throw new Error("missing-fields");
     }
     const user = await userNotTaken(userName);
     if (user) {
-        throw new Error("Username already taken");
+      throw new Error("username-already-taken");
     }
     next();
   } catch (error) {
-    return res.status(500).json({ok: false, message: error.message});
+    const {status, message} = handleErrors(error.code);
+    return res.status(status).json({ok: false, message: message});
   }
 };

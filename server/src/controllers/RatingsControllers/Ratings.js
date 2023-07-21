@@ -13,7 +13,8 @@ export const setRating = async (req, res) => {
       .status(200)
       .json({ok: true, message: "Rating set successfuly", setRating});
   } catch (error) {
-    return res.status(500).json({ok: false, message: error.message});
+    const {status, message} = handleErrors(error.code);
+    return res.status(status).json({ok: false, message: message});
   }
 };
 

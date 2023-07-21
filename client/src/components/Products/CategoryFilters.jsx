@@ -1,12 +1,24 @@
+// MUI
 import {Box, Typography, Checkbox, Button} from "@mui/material";
-import {gameCategories} from "../../utils/gameCategories";
-import {useState} from "react";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+// COMPONENTS
+import {gameCategories} from "../../utils/gameCategories";
+// REACT
+import {useState, useContext} from "react";
+// Context
+import {ProductsContext} from "../../context/ProductsContext";
 
 const CategoryFilters = () => {
+  const {products, setProducts} = useContext(ProductsContext);
+
+
   const [show, setShow] = useState(false);
   const handleShow = () => {
     setShow(!show);
+  };
+  const handleCheck = (category) => {
+    const newProducts = products.filter((product) => product.category === category);
+    setProducts(newProducts);
   };
   return (
     <>
@@ -49,7 +61,10 @@ const CategoryFilters = () => {
               key={category.label}
               sx={{display: "flex", alignItems: "center"}}
             >
-              <Checkbox sx={{mr: 1}} />
+              <Checkbox 
+                onChange={() => handleCheck(category.label)}
+                sx={{color: "#006D89", "&.Mui-checked": {color: "#006D89"}}}
+            />
               <Typography>{category.label}</Typography>
             </Box>
           ))}

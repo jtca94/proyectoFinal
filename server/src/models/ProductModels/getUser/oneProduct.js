@@ -5,7 +5,7 @@ export const oneProduct = async (id) => {
   const values = [id];
   const {rows} = await pool.query(text, values);
   if (!rows[0]) {
-    throw new Error(`No product with id ${id}`);
+    throw new Error(404);
   }
   return rows[0];
 };

@@ -12,17 +12,19 @@ export const createProduct = async (req, res) => {
       .status(200)
       .json({ok: true, message: "Product created successfully"});
   } catch (error) {
-    return res.status(500).json({ok: false, message: error.message});
+    const {status, message} = handleErrors(error.code);
+    return res.status(status).json({ok: false, message: message});
   }
 };
-// 
+//
 export const UserProducts = async (req, res) => {
   try {
     const {userId} = req.body.payload;
     const userProducts = await getUserProducts(userId);
     return res.status(200).json({ok: true, data: userProducts});
   } catch (error) {
-    return res.status(500).json({ok: false, message: error.message});
+    const {status, message} = handleErrors(error.code);
+    return res.status(status).json({ok: false, message: message});
   }
 };
 
@@ -31,7 +33,8 @@ export const getProducts = async (req, res) => {
     const products = await allProducts();
     return res.status(200).json({ok: true, products});
   } catch (error) {
-    return res.status(500).json({ok: false, message: error.message});
+    const {status, message} = handleErrors(error.code);
+    return res.status(status).json({ok: false, message: message});
   }
 };
 
@@ -41,7 +44,8 @@ export const getOneProduct = async (req, res) => {
     const product = await oneProduct(id);
     return res.status(200).json({ok: true, product});
   } catch (error) {
-    return res.status(500).json({ok: false, message: error.message});
+    const {status, message} = handleErrors(error.code);
+    return res.status(status).json({ok: false, message: message});
   }
 };
 
@@ -51,7 +55,8 @@ export const removeProduct = async (req, res) => {
     const product = await deleteProduct(id);
     return res.status(200).json({ok: true, product});
   } catch (error) {
-    return res.status(500).json({ok: false, message: error.message});
+    const {status, message} = handleErrors(error.code);
+    return res.status(status).json({ok: false, message: message});
   }
 };
 

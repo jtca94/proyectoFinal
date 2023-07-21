@@ -5,7 +5,7 @@ export const userNotTaken = async (userName) => {
   const values = [userName];
   const {rows} = await pool.query(text, values);
   if (rows.length > 0) {
-    throw new Error("Username already taken");
+    throw new Error("username-already-taken");
   }
   return rows[0];
 };

@@ -5,11 +5,12 @@ export const verifyToken = (req, res, next) => {
     const token = req.headers.authorization.split(" ")[1];
     const payload = jwt.verify(token, process.env.SECRET_KEY);
     if (!payload) {
-      throw new Error("Unauthorized");
+      throw new Error(401);
     }
     req.body.payload = payload;
     next();
   } catch (error) {
-    return res.status(401).json({ok: false, message: "Unauthorized"});
+    const {status, message} = handleErrors(error.code);
+    return res.status(status).json({ok: false, message: message});
   }
 };

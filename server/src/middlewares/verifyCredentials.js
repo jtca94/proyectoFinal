@@ -4,7 +4,7 @@ export const verifyCredentials = async (req, res, next) => {
   try {
     const {email, password} = req.body;
     if (!email || !password) {
-      throw new Error("Missing credentials");
+      throw new Error("missing-credentials");
     }
     const user = await validateUser(email);
     // esto es solo para desarrollo, en produccion se elimina
@@ -16,12 +16,13 @@ export const verifyCredentials = async (req, res, next) => {
     }
     const validatedPassword = await bcrypt.compare(password, user.password);
     if (!validatedPassword) {
-      throw new Error("Invalid password or email");
+      throw new Error("password-email-not-match");
     }
     req.body.userName = user.username;
     req.body.id = user.id;
     next();
   } catch (error) {
-    return res.status(500).json({ok: false, message: error.message});
+    const {status, message} = handleErrors(error.code);
+    return res.status(status).json({ok: false, message: message});
   }
 };
