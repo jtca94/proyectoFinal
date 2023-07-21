@@ -68,7 +68,7 @@ const RatingForm = ({productId}) => {
   });
 
   return (
-    <Container sx={{marginBottom: 5}}>
+    <Container maxWidth="lg" sx={{marginBottom: 5}}>
       <Grid container>
         {/* Alert al agregar calificación */}
         <Snackbar

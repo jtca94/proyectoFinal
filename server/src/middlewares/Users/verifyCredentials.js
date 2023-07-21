@@ -1,5 +1,7 @@
 import {validateUser} from "../../models/UserModels/createUser/validateUser.js";
 import bcrypt from "bcryptjs";
+import {handleErrors} from "../../helpers/handleErrors.js";
+
 export const verifyCredentials = async (req, res, next) => {
   try {
     const {email, password} = req.body;

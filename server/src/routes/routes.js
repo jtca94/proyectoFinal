@@ -5,15 +5,15 @@ import {productControllers} from "../controllers/ProductsControllers/products.js
 import {orderControllers} from "../controllers/OrderControllers/Orders.js";
 import { ratingControllers } from "../controllers/RatingsControllers/Ratings.js";
 //middlewares
-import {passwordHash} from "../middlewares/passwordHash.js";
-import {verifyOrders} from "../middlewares/verifyOrders.js";
-import {verifyRatings} from "../middlewares/verifyRatings.js";
-import {verifyNewUser} from "../middlewares/verifyNewUser.js";
-import {verifyCredentials} from "../middlewares/verifyCredentials.js";
-import {verifyNewProduct} from "../middlewares/verifyNewProduct.js";
-import {verifyToken} from "../middlewares/verifyToken.js";
-import { verifyDeleteProduct } from "../middlewares/verifyDeleteProduct.js";
-import { verifyUniqueRating } from "../middlewares/userHasOneRating.js";
+import {verifyNewUser} from "../middlewares/Users/verifyNewUser.js";
+import {verifyCredentials} from "../middlewares/Users/verifyCredentials.js";
+import {verifyToken} from "../middlewares/Users/verifyToken.js";
+import {passwordHash} from "../middlewares/Users/passwordHash.js";
+import {verifyNewProduct} from "../middlewares/Products/verifyNewProduct.js";
+import {verifyDeleteProduct} from "../middlewares/Products/verifyDeleteProduct.js";
+import {verifyRatings} from "../middlewares/Ratings/verifyRatings.js";
+import {verifyUniqueRating} from "../middlewares/Ratings/verifyUniqueRating.js";
+import {verifyOrders} from "../middlewares/Orders/verifyOrders.js";
 
 const routes = Router();
 
@@ -21,7 +21,7 @@ const routes = Router();
 routes.post("/register", verifyNewUser, passwordHash, userControllers.newUser);
 routes.post("/login", verifyCredentials, userControllers.LoginUser);
 routes.post("/products", verifyNewProduct, productControllers.createProduct);
-routes.post('/orders',verifyOrders.post, verifyToken, orderControllers.newOrder );
+routes.post('/orders', verifyOrders.post, verifyToken, orderControllers.newOrder );
 routes.post('/products/:productid/ratings', verifyToken, verifyUniqueRating, verifyRatings.post, ratingControllers.setRating);
 //GET ROUTES
 routes.get("/productsByUser", verifyToken, productControllers.UserProducts);

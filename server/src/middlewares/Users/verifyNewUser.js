@@ -1,4 +1,6 @@
 import {userNotTaken} from "../../models/UserModels/createUser/verifyUsername.js";
+import {handleErrors} from "../../helpers/handleErrors.js";
+
 export const verifyNewUser = async (req, res, next) => {
   try {
     const {userName, firstName, lastName, email, password, address} = req.body;

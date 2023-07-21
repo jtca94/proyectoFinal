@@ -1,3 +1,5 @@
+import {handleErrors} from "../../helpers/handleErrors.js";
+
 const get = (req, res, next) => {
   try {
     const {productid} = req.params;

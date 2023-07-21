@@ -1,5 +1,5 @@
 // MUI
-import {Snackbar, Alert, Grid, Typography} from "@mui/material";
+import {Snackbar, Alert, Grid, Typography, Container} from "@mui/material";
 // REACT & RRDOM
 import {useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
@@ -70,20 +70,22 @@ const DetailProduct = () => {
               stock={singleProduct.stock}
               setOpen={setOpen}
             />
-            <Grid container>
-              <Grid item xs={12} md={6}>
-                {userName ? (
-                  <RatingForm productId={singleProduct.id} />
-                ) : (
-                  <Typography>
-                    Debes iniciar sesión para dejar una valoración
-                  </Typography>
-                )}
+            <Container maxWidth="lg">
+              <Grid container>
+                <Grid item xs={12} md={6}>
+                  {userName ? (
+                    <RatingForm productId={singleProduct.id} />
+                  ) : (
+                    <Typography>
+                      Debes iniciar sesión para dejar una valoración
+                    </Typography>
+                  )}
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <RatingOverview />
+                </Grid>
               </Grid>
-              <Grid item xs={12} md={6}>
-                <RatingOverview />
-              </Grid>
-            </Grid>
+            </Container>
             <AllRatings productId={singleProduct.id} />
           </>
         ) : (

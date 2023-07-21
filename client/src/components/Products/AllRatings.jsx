@@ -30,7 +30,7 @@ const AllRatings = ({productId}) => {
   }, [productId, setRatings]);
 
   return (
-  <Container maxWidth="xl" sx={{mt: 2}}>
+  <Container maxWidth="lg" sx={{mt: 2}}>
     <Typography variant="h3" fontWeight={500} textAlign="center" sx={{mb: 3}}>Comentarios del Producto</Typography>
     <Grid container sx={{mb: 5}}>
       {ratings.map((rating) => (
