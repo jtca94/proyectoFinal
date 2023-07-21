@@ -1,5 +1,5 @@
 import { addOrder } from "../../models/OrderModels/addOrder.js"
-import { getIdOrder } from "../../models/OrderModels/idOrder.js";
+import { getOrdersById } from "../../models/OrderModels/getOrders.js"
 import { handleErrors } from "../../helpers/handleErrors.js";
 
 

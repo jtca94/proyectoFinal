@@ -34,12 +34,13 @@ CREATE TABLE ratings (
   productId INT NOT NULL REFERENCES products(id),
   rating INT NOT NULL,
   comment VARCHAR(300) NOT NULL
+  username VARCHAR(64) NOT NULL
 );
 
 -- TABLA JOSE
 
 INSERT INTO users (userName, firstName, lastName, password, email, address) VALUES
-('admin', 'admin', 'admin', '123123', 'admin@admin.com', 'admin');
+('admin', 'admin', 'admin', '123123123', 'admin@admin.com', 'admin');
 -- insert values of videogames into products table
 INSERT INTO products (userId, name, description, price, category, image, stock) VALUES 
 (1, 'The Last of Us Part II', 'The Last of Us Part II is a 2020 action-adventure game developed by Naughty Dog and published by Sony Interactive Entertainment for the PlayStation 4. Set five years after The Last of Us (2013), players control 19-year-old Ellie, who comes into conflict with a mysterious cult in a post-apocalyptic United States. The game contains survival horror elements and is played from the third-person perspective. Players can use firearms, improvised weapons, and stealth to defend against hostile humans and cannibalistic creatures infected by a mutated strain of the Cordyceps fungus.', 59990, 'Acción', 'https://i.ytimg.com/vi/eOiUtRF8k28/maxresdefault.jpg', 100),
@@ -54,6 +55,7 @@ INSERT INTO products (userId, name, description, price, category, image, stock) 
 
 INSERT INTO users (username, firstname, lastname, password, email, address)
 VALUES
+('admin', 'admin', 'admin', '123123123', 'admin@admin.com', 'admin');
 ('user1', 'Juan', 'Pérez', '$2a$12$nxW/bdIxZ6hWbYAHXoiD2e/JIGUkJ1s5VUsThyJeFToa4J/EX0WZy', 'juan@example.com', 'Calle Principal 123'),
 ('user2', 'María', 'González', '$2a$12$ro0.u31.Cz/vR4wN75sV9O9Vt9ncFuB2gvLFpnfhmILRb5/U2GjCC', 'maria@example.com', 'Avenida Central 456'),
 ('user3', 'Pedro', 'Sánchez', '$2a$12$z68mpfeqyH.G2Vm3W8N79OIeg2.XWNdEPt4L0ObTNBqF7i3AGOwqm', 'pedro@example.com', 'Plaza Mayor 789'),
@@ -91,12 +93,14 @@ VALUES
 (4,3,1),
 (5,4,2);
 
-INSERT INTO ratings (userid, productid, rating, comment)
+INSERT INTO ratings (userid, productid, rating, comment, username)
 VALUES
-(1,9,5,'¡God of War superó todas mis expectativas! La historia épica y la jugabilidad intensa me cautivaron por completo.'),
-(2,2,4,'La Nintendo Switch es una joya de la versatilidad y la diversión, perfecta tanto en casa como en movimiento.'),
-(3,1,5,'¡La PS5 es simplemente increíble! Los gráficos impresionantes y la velocidad de carga me dejaron maravillado.'),
-(4,3,1,'La Xbox Series X me decepcionó, los problemas de rendimiento y falta de juegos exclusivos me frustraron.'),
-(5,4,4,'La Wii U es divertida, pero la falta de apoyo de terceros y la escasez de juegos me decepcionaron.');
+(1,9,5,'¡God of War superó todas mis expectativas! La historia épica y la jugabilidad intensa me cautivaron por completo.', 'user 1'),
+(2,2,4,'La Nintendo Switch es una joya de la versatilidad y la diversión, perfecta tanto en casa como en movimiento.', 'user 2'),
+(3,1,5,'¡La PS5 es simplemente increíble! Los gráficos impresionantes y la velocidad de carga me dejaron maravillado.', 'user 3'),
+(4,3,1,'La Xbox Series X me decepcionó, los problemas de rendimiento y falta de juegos exclusivos me frustraron.', 'user4'),
+(5,4,4,'La Wii U es divertida, pero la falta de apoyo de terceros y la escasez de juegos me decepcionaron.', 'user 5');
+(4,3,1,'La Xbox Series X me decepcionó, los problemas de rendimiento y falta de juegos exclusivos me frustraron.', 'user 6'),
+(5,4,4,'La Wii U es divertida, pero la falta de apoyo de terceros y la escasez de juegos me decepcionaron.', 'user 7');
 
 

@@ -1,6 +1,5 @@
 import {addRating} from "../../models/RatingsModels/addRating.js";
 import {getRatings} from "../../models/RatingsModels/getRatings.js";
-import {deleteRating} from "../../models/RatingsModels/deleteRating.js";
 import { handleErrors } from "../../helpers/handleErrors.js";
 
 export const setRating = async (req, res) => {
