@@ -3,7 +3,7 @@ import {Router} from "express";
 import {userControllers} from "../controllers/UserControllers/Users.js";
 import {productControllers} from "../controllers/ProductsControllers/products.js";
 import {orderControllers} from "../controllers/OrderControllers/Orders.js";
-import { ratingControllers } from "../controllers/RatingsControllers/Ratings.js";
+import {ratingControllers} from "../controllers/RatingsControllers/Ratings.js";
 //middlewares
 import {verifyNewUser} from "../middlewares/Users/verifyNewUser.js";
 import {verifyCredentials} from "../middlewares/Users/verifyCredentials.js";
@@ -27,10 +27,9 @@ routes.post('/products/:productid/ratings', verifyToken, verifyUniqueRating, ver
 routes.get("/productsByUser", verifyToken, productControllers.UserProducts);
 routes.get("/products", productControllers.getProducts);
 routes.get("/products/:id", productControllers.getOneProduct);
-routes.get("/orders", verifyToken, verifyOrders.get, orderControllers.getOrders);
-routes.get("/products/:productid/ratings", verifyRatings.get, ratingControllers.allRatings);
+routes.get("/orders", verifyToken, orderControllers.getOrders);
+routes.get("/products/:productId/ratings", ratingControllers.allRatings);
 //DELETE ROUTES
-routes.delete("/ratings", verifyToken, verifyRatings.Delete, ratingControllers.removeRating)
 routes.delete("/products/:id", verifyToken, verifyDeleteProduct, productControllers.removeProduct);
 
 export default routes;
