@@ -81,7 +81,10 @@ export const newProductValidationSchema = yup.object({
 export const ratingValidationSchema = yup.object({
     rating: yup
         .number('Ingresa la calificación del producto')
-        .required('La calificación del producto es requerida'),
+        .required('La calificación del producto es requerida')
+        .min(1, 'La calificación del producto debe ser mayor a 0')
+        .max(5, 'La calificación del producto debe ser menor a 6'),
+    
     comment: yup
         .string('Ingresa el comentario del producto')
         .required('El comentario del producto es requerido')

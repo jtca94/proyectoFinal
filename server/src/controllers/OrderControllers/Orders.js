@@ -1,6 +1,7 @@
 import { addOrder } from "../../models/OrderModels/addOrder.js"
-import { getOrdersById } from "../../models/OrderModels/getOrders.js";
-import { handleErrors } from "../../middlewares/handleErrors.js";
+import { getOrdersById } from "../../models/OrderModels/getOrders.js"
+import { handleErrors } from "../../helpers/handleErrors.js";
+
 
 export const newOrder = async (req, res) => {
   try {

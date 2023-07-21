@@ -6,10 +6,7 @@
   "main": "src/main.js",
   "scripts": {
     "dev": "nodemon src/main.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "testing": "jest",
-    "test2": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "test-exit": "node --experimental-vm-modules node_modules/jest/bin/jest.js --forceExit"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles --forceExit"
   },
   "keywords": [],
   "author": "",
@@ -24,7 +21,7 @@
   },
   "devDependencies": {
     "jest": "^29.6.1",
-    "nodemon": "^3.0.1",
+    "nodemon": "^2.0.22",
     "supertest": "^6.3.3"
   }
 }

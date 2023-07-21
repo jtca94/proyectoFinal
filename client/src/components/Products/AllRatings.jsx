@@ -1,37 +1,53 @@
-import { Container, Grid, Typography, Rating } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { array } from "yup";
+// React
+import {useEffect, useContext} from "react";
+// proptypes
+import PropTypes from "prop-types";
+// context
+import {RatingsContext} from "../../context/RatingsContext";
+//MUI
+import {Container, Divider, Grid, Rating, Typography} from "@mui/material";
 
-const AllRatings = (props) => {
-  const { id: productid } = useParams();
+const AllRatings = ({productId}) => {
+  const {ratings, setRatings} = useContext(RatingsContext);
 
-  const [data, setData] = useState([]);
   useEffect(() => {
-
-  const getRatings = async () => {
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/products/${productid}/ratings`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
+    const getRatings = async () => {
+      try {
+        const data = await fetch(
+          `${import.meta.env.VITE_API_URL}/products/${productId}/ratings`
+        );
+        const res = await data.json();
+        if (res.ok === true) {
+          setRatings(res.ratings);
+        } else {
+          throw new Error(res);
         }
-      );
-      const arrayRatings = await res.json();
-      setData(arrayRatings.ratings)
-    } catch (error) {
-      console.log(error)
-    }
-  };
-  getRatings();
-  }, []);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getRatings();
+  }, [productId, setRatings]);
 
   return (
-<></>
+  <Container maxWidth="lg" sx={{mt: 2}}>
+    <Typography variant="h3" fontWeight={500} textAlign="center" sx={{mb: 3}}>Comentarios del Producto</Typography>
+    <Grid container sx={{mb: 5}}>
+      {ratings.map((rating) => (
+        <Grid item xs={12} key={rating.id}>
+          <Typography textTransform="uppercase" fontWeight={500} variant="h5">{rating.username}</Typography>
+          <Rating value={rating.rating} precision={0.5} size="large" readOnly />
+          <Typography variant="body1">{rating.comment}</Typography>
+          <Divider sx={{my: 2}} />
+        </Grid>
+      ))}
+    </Grid>
+  </Container>
   );
 };
 
 export default AllRatings;
+
+AllRatings.propTypes = {
+  productId: PropTypes.number.isRequired,
+};

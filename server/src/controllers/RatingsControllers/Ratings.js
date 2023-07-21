@@ -1,18 +1,19 @@
 import {addRating} from "../../models/RatingsModels/addRating.js";
 import {getRatings} from "../../models/RatingsModels/getRatings.js";
-import {handleErrors} from "../../middlewares/handleErrors.js";
+import { handleErrors } from "../../helpers/handleErrors.js";
 
 export const setRating = async (req, res) => {
   try {
     const {rating, comment} = req.body;
-    const {userId} = req.body.payload;
+    const {userId, userName} = req.body.payload;
     const {productid} = req.params;
-    const setRating = addRating(userId, productid, rating, comment);
+    const setRating = addRating(userId, productid, rating, comment, userName);
     return res
       .status(200)
-      .json({ok: true, message: "order added successfully", setRating});
+      .json({ok: true, message: "Rating set successfuly", setRating});
   } catch (error) {
-    return res.status(500).json({ok: false, message: error.message});
+    const {status, message} = handleErrors(error.code);
+    return res.status(status).json({ok: false, message: message});
   }
 };
 
