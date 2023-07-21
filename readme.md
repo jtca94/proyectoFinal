@@ -38,7 +38,7 @@ CREATE TABLE orders (
 CREATE TABLE ratings (
   id SERIAL PRIMARY KEY,
   userId INT NOT NULL REFERENCES users(id),
-  productId INT NOT NULL REFERENCES products(id),
+  productId INT NOT NULL REFERENCES products(id) ON DELETE CASCADE,
   rating INT NOT NULL,
   comment VARCHAR(300) NOT NULL,
   username VARCHAR(64) NOT NULL
