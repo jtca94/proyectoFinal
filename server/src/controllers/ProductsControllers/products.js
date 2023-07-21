@@ -3,6 +3,7 @@ import {getUserProducts} from "../../models/ProductModels/getUser/userProducts.j
 import {allProducts} from "../../models/ProductModels/getUser/allProducts.js";
 import {oneProduct} from "../../models/ProductModels/getUser/oneProduct.js";
 import {deleteProduct} from "../../models/ProductModels/getUser/deleteProduct.js";
+import { handleErrors } from "../../helpers/handleErrors.js";
 //recordar verificar que el usuario existe al agregar producto
 export const createProduct = async (req, res) => {
   try {

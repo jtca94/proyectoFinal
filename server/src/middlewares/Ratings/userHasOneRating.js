@@ -1,4 +1,5 @@
-import {pool} from "../database/config.js";
+import {pool} from "../../database/config.js";
+import { handleErrors } from "../../helpers/handleErrors.js";
 
 export const verifyUniqueRating = async (req, res, next) => {
   try {

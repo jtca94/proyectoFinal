@@ -1,4 +1,4 @@
-import {validateUser} from "../models/UserModels/createUser/validateUser.js";
+import {validateUser} from "../../models/UserModels/createUser/validateUser.js";
 import bcrypt from "bcryptjs";
 export const verifyCredentials = async (req, res, next) => {
   try {

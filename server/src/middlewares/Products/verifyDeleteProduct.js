@@ -1,4 +1,6 @@
-import {pool} from "../database/config.js";
+import {pool} from "../../database/config.js";
+import { handleErrors } from "../../helpers/handleErrors.js";
+
 export const verifyDeleteProduct = async (req, res, next) => {
   try {
     const {id} = req.params;

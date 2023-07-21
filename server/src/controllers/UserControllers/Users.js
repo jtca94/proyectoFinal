@@ -1,6 +1,6 @@
 import {createUser} from "../../models/UserModels/createUser/createUser.js";
 import jwt from "jsonwebtoken";
-
+import { handleErrors } from "../../helpers/handleErrors.js";
 // verificar que el usuario este disponible
 const newUser = async (req, res) => {
   try {

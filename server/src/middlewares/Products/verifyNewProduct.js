@@ -1,3 +1,5 @@
+import { handleErrors } from "../../helpers/handleErrors.js";
+
 export const verifyNewProduct = (req, res, next) => {
   try {
     const {name, description, price, category, stock, image, userId} = req.body;
