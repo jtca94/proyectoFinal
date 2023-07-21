@@ -1,29 +1,36 @@
+import { Container, Grid, Typography, Rating } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { array } from "yup";
 
-const AllRatings = () => {
+const AllRatings = (props) => {
   const { id: productid } = useParams();
 
   const [data, setData] = useState([]);
+  useEffect(() => {
 
-  const getProduct = async (id) => {
+  const getRatings = async () => {
     try {
-      const data = await fetch(
-        `${import.meta.env.VITE_API_URL}/ratings/${productid}`
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/products/${productid}/ratings`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
-      const res = await data.json();
-      console.log(res.rating)
+      const arrayRatings = await res.json();
+      setData(arrayRatings.ratings)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   };
-
-  getProduct();
+  getRatings();
+  }, []);
 
   return (
-    <div>
-
-    </div>
+<></>
   );
 };
 
