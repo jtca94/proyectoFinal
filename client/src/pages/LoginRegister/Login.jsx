@@ -55,16 +55,15 @@ const Login = () => {
             login(data.token, data.id, data.userName);
             navigate("/dashboard");
           }, 1500);
-        } else {
-          console.log(data);
-          setError(true);
-          setMessage(data.message);
-          formik.resetForm();
+        } 
+        else {
+          throw new Error(data.message);
         }
       } catch (error) {
-        console.log(error);
+        console.log(error)
+        setMessage(error.message);
         setError(true);
-        setMessage("Error de conexión");
+             
       } finally {
         setTimeout(() => {
           setLoading(false);

@@ -4,7 +4,7 @@ export const validateUser = async (email) => {
   const values = [email];
   const {rows} = await pool.query(text, values);
   if (rows.length === 0) {
-    throw new Error("password-email-not-match");
+    return false;
   }
   return rows[0];
 };

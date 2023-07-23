@@ -13,7 +13,7 @@ export const createProduct = async (req, res) => {
       .status(200)
       .json({ok: true, message: "Product created successfully"});
   } catch (error) {
-    const {status, message} = handleErrors(error.code);
+    const {status, message} = handleErrors(error.message);
     return res.status(status).json({ok: false, message: message});
   }
 };
@@ -24,7 +24,7 @@ export const UserProducts = async (req, res) => {
     const userProducts = await getUserProducts(userId);
     return res.status(200).json({ok: true, data: userProducts});
   } catch (error) {
-    const {status, message} = handleErrors(error.code);
+    const {status, message} = handleErrors(error.message);
     return res.status(status).json({ok: false, message: message});
   }
 };
@@ -34,7 +34,7 @@ export const getProducts = async (req, res) => {
     const products = await allProducts();
     return res.status(200).json({ok: true, products});
   } catch (error) {
-    const {status, message} = handleErrors(error.code);
+    const {status, message} = handleErrors(error.message);
     return res.status(status).json({ok: false, message: message});
   }
 };
@@ -45,7 +45,7 @@ export const getOneProduct = async (req, res) => {
     const product = await oneProduct(id);
     return res.status(200).json({ok: true, product});
   } catch (error) {
-    const {status, message} = handleErrors(error.code);
+    const {status, message} = handleErrors(error.message);
     return res.status(status).json({ok: false, message: message});
   }
 };
@@ -56,7 +56,7 @@ export const removeProduct = async (req, res) => {
     const product = await deleteProduct(id);
     return res.status(200).json({ok: true, product});
   } catch (error) {
-    const {status, message} = handleErrors(error.code);
+    const {status, message} = handleErrors(error.message);
     return res.status(status).json({ok: false, message: message});
   }
 };

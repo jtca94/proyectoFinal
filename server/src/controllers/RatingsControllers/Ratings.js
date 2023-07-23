@@ -12,7 +12,7 @@ export const setRating = async (req, res) => {
       .status(200)
       .json({ok: true, message: "Rating set successfuly", setRating});
   } catch (error) {
-    const {status, message} = handleErrors(error.code);
+    const {status, message} = handleErrors(error.message);
     return res.status(status).json({ok: false, message: message});
   }
 };
@@ -23,7 +23,7 @@ export const allRatings = async (req, res) => {
     const ratings = await getRatings(productId);
     return res.status(200).json({ok: true, ratings});
   } catch (error) {
-    const {status, message} = handleErrors(error.code);
+    const {status, message} = handleErrors(error.message);
     return res.status(status).json({ok: false, message: message});
   }
 };

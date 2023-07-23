@@ -11,7 +11,7 @@ export const verifyToken = (req, res, next) => {
     req.body.payload = payload;
     next();
   } catch (error) {
-    const {status, message} = handleErrors(error.code);
+    const {status, message} = handleErrors(error.message);
     return res.status(status).json({ok: false, message: message});
   }
 };

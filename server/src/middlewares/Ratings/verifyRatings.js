@@ -8,7 +8,7 @@ const get = (req, res, next) => {
     }
     next();
   } catch (error) {
-    const {status, message} = handleErrors(error.code);
+    const {status, message} = handleErrors(error.message);
     return res.status(status).json({ok: false, message: message});
   }
 };
@@ -23,7 +23,7 @@ const post = (req, res, next) => {
     }
     next();
   } catch (error) {
-    const {status, message} = handleErrors(error.code);
+    const {status, message} = handleErrors(error.message);
     return res.status(status).json({ok: false, message: message});
   }
 };
@@ -36,7 +36,7 @@ const Delete = (req, res, next) => {
     }
     next();
   } catch (error) {
-    const {status, message} = handleErrors(error.code);
+    const {status, message} = handleErrors(error.message);
     return res.status(status).json({ok: false, message: message});
   }
 };

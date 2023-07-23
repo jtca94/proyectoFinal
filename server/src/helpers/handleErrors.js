@@ -21,11 +21,16 @@ export const handleErrors = (code) => {
         status: 400,
         message: "Credenciales faltantes",
       };
-      case "missing-fields":
-        return {
-          status: 400,
-          message: "Todos los campos son obligatorios",
-        };
+    case "missing-fields":
+      return {
+        status: 400,
+        message: "Todos los campos son obligatorios",
+      };
+    case "user-not-found":
+      return {
+        status: 400,
+        message: "El usuario no existe, por favor registrese",
+      };
     case 400:
       return {
         status: 400,

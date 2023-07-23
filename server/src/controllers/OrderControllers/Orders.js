@@ -9,7 +9,7 @@ export const newOrder = async (req, res) => {
     addOrder(userid, productid, quantity);
     return res.status(200).json({ok: true, message: "Add order successfully"});
   } catch (error) {
-    const {status, message} = handleErrors(error.code);
+    const {status, message} = handleErrors(error.message);
     return res.status(status).json({ok: false, message: message});
   }
 };
@@ -20,7 +20,7 @@ export const getOrders = async (req, res) => {
     const orders = await getOrdersById(userid);
     return res.status(200).json({ok: true, message: "Get All Orders successfully", orders });
   } catch (error) {
-    const {status, message} = handleErrors(error.code);
+    const {status, message} = handleErrors(error.message);
     return res.status(status).json({ok: false, message: message});
   }
 };
