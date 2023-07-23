@@ -1,11 +1,58 @@
-import {Container, Typography, Box, Divider, Button} from "@mui/material";
+import {
+  Container,
+  Typography,
+  Box,
+  Divider,
+  Button,
+  Snackbar,
+  Alert,
+} from "@mui/material";
 import CartCard from "../../components/Cart/CartCard";
-import {useContext} from "react";
-import {CartContext} from "../../context/CartContext";
+import { useContext, useState } from "react";
+import { CartContext } from "../../context/CartContext";
+import { AuthContext } from "../../context/AuthContext";
 import cartImg from "../../images/cartImg.png";
+import { useNavigate } from "react-router-dom";
 
 const Carro = () => {
-  const {cart, total} = useContext(CartContext);
+  const { cart, setCart, total } =
+    useContext(CartContext);
+  const { user, token } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+
+  const handleSubmitToFetch = async (body) => {
+    try {
+      const data = await fetch(`${import.meta.env.VITE_API_URL}/orders`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      });
+      if (data.ok !== true) {
+        throw new Error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const hanbleSubmitOrders = () => {
+    cart.forEach((product) => {
+      const { id: productid, quantity } = product;
+      const body = { userid: user, productid, quantity };
+      handleSubmitToFetch(body);
+    });
+    setOpen(true);
+    setTimeout(() => {
+      navigate("/");
+    }, 3000);
+    setCart([]);
+    localStorage.setItem("cart", JSON.stringify([]));
+  };
+
   return (
     <Container maxWidth="lg" sx={{}}>
       <Typography
@@ -14,11 +61,11 @@ const Carro = () => {
         align="center"
         fontWeight={500}
         color="custom.blue"
-        sx={{py: 3, textShadow: "0 0 10px rgba(0,0,0,0.5)"}}
+        sx={{ py: 3, textShadow: "0 0 10px rgba(0,0,0,0.5)" }}
       >
         Mi Compra
       </Typography>
-      <Divider sx={{mb: 3}} />
+      <Divider sx={{ mb: 3 }} />
       <Typography variant="h4">Aquí puedes editar tu compra</Typography>
       <Box
         sx={{
@@ -33,7 +80,7 @@ const Carro = () => {
         {cart.length > 0 ? (
           <>
             <CartCard />
-            <Divider sx={{mb: 3}} />
+            <Divider sx={{ mb: 3 }} />
             <Typography
               color="custom.blue"
               variant="h4"
@@ -49,6 +96,7 @@ const Carro = () => {
               Total: ${parseInt(total).toLocaleString("cl-CL")}
             </Typography>
             <Button
+              onClick={hanbleSubmitOrders}
               variant="contained"
               color="success"
               sx={{
@@ -63,7 +111,7 @@ const Carro = () => {
           </>
         ) : (
           <>
-            <Typography sx={{py: 3}} align="center" variant="h4">
+            <Typography sx={{ py: 3 }} align="center" variant="h4">
               No hay productos en el carrito
             </Typography>
             <Box
@@ -82,6 +130,43 @@ const Carro = () => {
           </>
         )}
       </Box>
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={() => setOpen(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        size="large"
+        sx={{ mt: 10 }}
+      >
+        <Box
+          sx={{
+            minWidth: "400px",
+            maxWidth: "600px",
+            background: "#000",
+            borderRadius: "8px",
+            padding: "20px",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <Alert
+            onClose={() => setOpen(false)}
+            severity="success"
+            sx={{
+              flex: 1,
+              color: "black",
+            }}
+          >
+            <Typography variant="h6" color="#4CAF50">
+              ¡Compra realizada con éxito!
+            </Typography>
+            <Typography variant="body1" color="#4CAF50">
+              ¡Gracias por tu compra! Hemos procesado tu pedido y pronto
+              recibirás más información.
+            </Typography>
+          </Alert>
+        </Box>
+      </Snackbar>
     </Container>
   );
 };

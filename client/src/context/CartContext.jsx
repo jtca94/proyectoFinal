@@ -73,7 +73,7 @@ export default function CartContextProvider({children}) {
 
   return (
     <CartContext.Provider
-      value={{cart, handleAddToCart, handleRemoveFromCart, handleClearItem, total, cartCount}}
+      value={{cart, setCart, handleAddToCart, handleRemoveFromCart, handleClearItem, total, cartCount}}
     >
       {children}
     </CartContext.Provider>
