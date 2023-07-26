@@ -5,9 +5,15 @@ export const ProductsContext = createContext();
 
 export const ProductsProvider = ({children}) => {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [sortedProducts, setSortedProducts] = useState(products);
 
   useEffect(() => {
-    getProducts();
+    setTimeout(() => {
+      getProducts();
+    }
+    , 3000);
   }, []);
 
   const getProducts = async () => {
@@ -23,13 +29,17 @@ export const ProductsProvider = ({children}) => {
       }
       const data = await res.json();
       setProducts(data.products);
+      setSortedProducts(data.products);
     } catch (error) {
       console.log(error);
+    }
+    finally {
+      setLoading(false);
     }
   };
 
   return (
-    <ProductsContext.Provider value={{products, getProducts, setProducts}}>
+    <ProductsContext.Provider value={{products, getProducts, setProducts, filteredProducts, setFilteredProducts, loading, sortedProducts, setSortedProducts}}>
       {children}
     </ProductsContext.Provider>
   );

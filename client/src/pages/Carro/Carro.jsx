@@ -47,9 +47,10 @@ const Carro = () => {
     });
     setOpen(true);
     setTimeout(() => {
+      setCart([]);
       navigate("/");
     }, 3000);
-    setCart([]);
+    
     localStorage.setItem("cart", JSON.stringify([]));
   };
 

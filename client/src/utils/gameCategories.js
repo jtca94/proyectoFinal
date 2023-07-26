@@ -15,7 +15,7 @@ export const gameCategories = [
   {label: "Plataformas"},
   {label: "Puzzle"},
   {label: "Realidad Virtual"},
-  {label: "Retró"},
+  {label: "Retro"},
   {label: "RPG"},
   {label: "Simulación"},
   {label: "Sigilo"},

@@ -9,16 +9,17 @@ import {useContext} from "react";
 import {RatingsProvider} from "../../context/RatingsContext";
 // COMPONENTS
 import DetailProductId from "../../components/Products/DetailProductId";
-import NotFound from "../404/404.jsx";
 import RatingForm from "../../components/Products/RatingForm";
 import AllRatings from "../../components/Products/AllRatings";
 import RatingOverview from "../../components/Products/RatingOverview";
+import Loading from "../../utils/Loading";
 
 const DetailProduct = () => {
   const {userName} = useContext(AuthContext);
   const [singleProduct, setSingleProduct] = useState([]);
   const [checkID, setCheckID] = useState(false);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
   const {id} = useParams();
 
   useEffect(() => {
@@ -38,60 +39,63 @@ const DetailProduct = () => {
     } catch (error) {
       console.log(error);
     }
+    finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
-      <RatingsProvider>
-        {checkID ? (
-          <>
-            <Snackbar
-              anchorOrigin={{vertical: "top", horizontal: "right"}}
-              open={open}
-              sx={{marginTop: "4rem"}}
-              autoHideDuration={6000}
-              onClose={() => setOpen(false)}
-            >
-              <Alert
+        <RatingsProvider>
+          {checkID ? (
+            <>
+              <Snackbar
+                anchorOrigin={{vertical: "top", horizontal: "right"}}
+                open={open}
+                sx={{marginTop: "4rem"}}
+                autoHideDuration={6000}
                 onClose={() => setOpen(false)}
-                severity="success"
-                sx={{width: "100%"}}
               >
-                Producto añadido al carrito
-              </Alert>
-            </Snackbar>
-            <DetailProductId
-              id={singleProduct.id}
-              image={singleProduct.image}
-              name={singleProduct.name}
-              category={singleProduct.category}
-              description={singleProduct.description}
-              price={singleProduct.price}
-              stock={singleProduct.stock}
-              setOpen={setOpen}
-            />
-            <Container maxWidth="lg">
-              <Grid container>
-                <Grid item xs={12} md={6}>
-                  {userName ? (
-                    <RatingForm productId={singleProduct.id} />
-                  ) : (
-                    <Typography>
-                      Debes iniciar sesión para dejar una valoración
-                    </Typography>
-                  )}
+                <Alert
+                  onClose={() => setOpen(false)}
+                  severity="success"
+                  sx={{width: "100%"}}
+                >
+                  Producto añadido al carrito
+                </Alert>
+              </Snackbar>
+              <DetailProductId
+                id={singleProduct.id}
+                image={singleProduct.image}
+                name={singleProduct.name}
+                category={singleProduct.category}
+                description={singleProduct.description}
+                price={singleProduct.price}
+                stock={singleProduct.stock}
+                setOpen={setOpen}
+              />
+              <Container maxWidth="lg">
+                <Grid container>
+                  <Grid item xs={12} md={6}>
+                    {userName ? (
+                      <RatingForm productId={singleProduct.id} />
+                    ) : (
+                      <Typography>
+                        Debes iniciar sesión para dejar una valoración
+                      </Typography>
+                    )}
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <RatingOverview />
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} md={6}>
-                  <RatingOverview />
-                </Grid>
-              </Grid>
-            </Container>
-            <AllRatings productId={singleProduct.id} />
-          </>
-        ) : (
-          <NotFound />
-        )}
-      </RatingsProvider>
+              </Container>
+              <AllRatings productId={singleProduct.id} />
+            </>
+          ) : (
+            <Loading isLoading={loading} />
+          )}
+        </RatingsProvider>
     </>
   );
 };
