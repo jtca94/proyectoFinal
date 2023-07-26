@@ -50,6 +50,7 @@ const RatingForm = ({productId}) => {
           }
         );
         const data = await res.json();
+          console.log(data)
         if (data.ok === true) {
           setOpen(true);
           formik.resetForm();
@@ -59,7 +60,6 @@ const RatingForm = ({productId}) => {
           throw new Error(data.message);
         }
       } catch (error) {
-        console.log(error);
         setError(true);
         setErrorMessage(error.message);
         formik.resetForm();

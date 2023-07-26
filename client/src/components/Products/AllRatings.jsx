@@ -30,19 +30,44 @@ const AllRatings = ({productId}) => {
   }, [productId, setRatings]);
 
   return (
-  <Container maxWidth="lg" sx={{mt: 2}}>
-    <Typography variant="h3" fontWeight={500} textAlign="center" sx={{mb: 3}}>Comentarios del Producto</Typography>
-    <Grid container sx={{mb: 5}}>
-      {ratings.map((rating) => (
-        <Grid item xs={12} key={rating.id}>
-          <Typography textTransform="uppercase" fontWeight={500} variant="h5">{rating.username}</Typography>
-          <Rating value={rating.rating} precision={0.5} size="large" readOnly />
-          <Typography variant="body1">{rating.comment}</Typography>
-          <Divider sx={{my: 2}} />
-        </Grid>
-      ))}
-    </Grid>
-  </Container>
+    <Container maxWidth="lg" sx={{mt: 2}}>
+      {ratings.length > 0 ? (
+        <Typography
+          variant="h3"
+          fontWeight={500}
+          textAlign="center"
+          sx={{mb: 3}}
+        >
+          Comentarios del Producto
+        </Typography>
+      ) : (
+        <Typography
+          variant="h3"
+          fontWeight={500}
+          textAlign="center"
+          sx={{mb: 3}}
+        >
+          Aún no hay comentarios para este producto
+        </Typography>
+      )}
+      <Grid container sx={{mb: 5}}>
+        {ratings.map((rating) => (
+          <Grid item xs={12} key={rating.id}>
+            <Typography textTransform="uppercase" fontWeight={500} variant="h5">
+              {rating.username}
+            </Typography>
+            <Rating
+              value={rating.rating}
+              precision={0.5}
+              size="large"
+              readOnly
+            />
+            <Typography variant="body1">{rating.comment}</Typography>
+            <Divider sx={{my: 2}} />
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
   );
 };
 

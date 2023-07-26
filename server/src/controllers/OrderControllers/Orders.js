@@ -21,7 +21,8 @@ export const getOrders = async (req, res) => {
       .status(200)
       .json({ok: true, message: "Operation successful", orders});
   } catch (error) {
-    console.log(error);
+    const {status, message} = handleErrors(error.message);
+    return res.status(status).json({ok: false, message: message});
   }
 };
 

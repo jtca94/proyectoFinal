@@ -1,36 +1,55 @@
-import {Typography, Box, Button, Container} from "@mui/material";
-import { useEffect, useState, useContext } from "react";
-import { AuthContext } from "../../../context/AuthContext";
+import {
+  Typography,
+  Box,
+  Button,
+  Container,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from "@mui/material";
+import {useEffect, useState, useContext} from "react";
+import {AuthContext} from "../../../context/AuthContext";
 import {useNavigate} from "react-router-dom";
 
 const Shopping = () => {
   const [purchases, setPurchases] = useState([]);
-  const {token} = useContext(AuthContext);
-
-
- useEffect(() => {
-  const response = async () => {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/orders`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-        },
-      });
-      if (!res.ok) {
-        throw new Error("Error al obtener las compras");
+  const [open, setOpen] = useState(false);
+  const {token, logout} = useContext(AuthContext);
+  //  fetch all orders
+  useEffect(() => {
+    const response = async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/orders`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(res);
+        if (!res.ok) {
+          throw new Error(res.status);
+        }
+        const data = await res.json();
+        setPurchases(data.orders);
+      } catch (error) {
+        console.log(error);
+        if (error.message === "401") {
+          setOpen(true);
+        }
       }
-      const data = await res.json();
-      setPurchases(data.orders);
-    }
-    catch (error) {
-      console.log(error);
-    }
-  };
-  response();
+    };
+    response();
   }, [token]);
-
+  //  handle close session
+  const handleClose = () => {
+    setOpen(false);
+    logout();
+    navigate("/login");
+  };
+  //  navigate
   const navigate = useNavigate();
   return (
     <>
@@ -88,16 +107,14 @@ const Shopping = () => {
               {/* <Typography variant="body1" sx={{mb: 1}}>
                 Precio: ${purchase.product.price}
               </Typography>*/}
-              <Typography variant="body1" sx={{mb: 1, 
-                color: "warning.main"
-                }}>
+              <Typography variant="body1" sx={{mb: 1, color: "warning.main"}}>
                 Estado: Pendiente
-              </Typography> 
+              </Typography>
             </Box>
           ))}
-        </Box>      
+        </Box>
       </Container>
-      
+
       <Button
         variant="contained"
         sx={{display: "block", mb: 3}}
@@ -107,6 +124,31 @@ const Shopping = () => {
       >
         Volver
       </Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Sesión expirada</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Tu token de sesión ha expirado, vuelve a iniciar sesión, pulsa
+            continuar para ir a la página de inicio de sesión.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleClose}
+            autoFocus
+            variant="contained"
+            color="error"
+            sx={{display: "block", m: 3, color: "white"}}
+          >
+            ir a Login
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

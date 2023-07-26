@@ -36,6 +36,11 @@ export const handleErrors = (code) => {
         status: 400,
         message: "Bad Request",
       };
+    case "jwt expired":
+      return {
+        status: 401,
+        message: "jwt expired",
+      };
     case 401:
       return {
         status: 401,
