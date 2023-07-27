@@ -46,6 +46,7 @@ const DetailProduct = () => {
 
   return (
     <>
+    <Container maxWidth="false" sx={{minHeight: "100vh"}}>
         <RatingsProvider>
           {checkID ? (
             <>
@@ -96,6 +97,7 @@ const DetailProduct = () => {
             <Loading isLoading={loading} />
           )}
         </RatingsProvider>
+      </Container>
     </>
   );
 };

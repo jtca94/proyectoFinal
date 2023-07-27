@@ -10,6 +10,8 @@ import {
   Button,
 } from "@mui/material";
 
+import Image from "../../images/contact.png";
+
 const Contacto = () => {
   return (
     <Container>
@@ -40,7 +42,7 @@ const Contacto = () => {
               verdaderos especialistas.
             </Typography>
             <img
-              src=".././src/images/contact.png"
+              src={Image}
               alt=""
               style={{width: "100%"}}
             />

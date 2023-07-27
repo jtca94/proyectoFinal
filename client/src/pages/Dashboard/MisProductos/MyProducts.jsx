@@ -11,12 +11,15 @@ import {
 import {useNavigate} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
 import UserArticles from "../../../components/Dashboard/userArticles";
+import Progress from "../../../utils/linearProgress";
 import {AuthContext} from "../../../context/AuthContext";
 
 const MyProducts = () => {
   const {token, logout} = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [noProducts, setNoProducts] = useState(null);
   useEffect(() => {
     const getProducts = async () => {
       try {
@@ -36,9 +39,14 @@ const MyProducts = () => {
           );
         }
         const data = await res.json();
+        if (data.data.length === 0) {
+          setNoProducts(true);
+        }
         setProducts(data.data);
       } catch (error) {
         setOpen(true);
+      } finally {
+        setLoading(false);
       }
     };
     getProducts();
@@ -59,22 +67,21 @@ const MyProducts = () => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
-          Sesión expirada
-        </DialogTitle>
+        <DialogTitle id="alert-dialog-title">Sesión expirada</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          Tu token de sesión ha expirado, vuelve a iniciar sesión, pulsa continuar para ir a la página de inicio de sesión.
+            Tu token de sesión ha expirado, vuelve a iniciar sesión, pulsa
+            continuar para ir a la página de inicio de sesión.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button 
-            onClick={handleClose} 
+          <Button
+            onClick={handleClose}
             autoFocus
             variant="contained"
             color="error"
             sx={{display: "block", m: 3, color: "white"}}
-            >
+          >
             ir a Login
           </Button>
         </DialogActions>
@@ -119,7 +126,8 @@ const MyProducts = () => {
           Artículos
         </Typography>
       </Box>
-      {products.length === 0 ? (
+      {loading && <Progress />}
+      {noProducts ? (
         <Typography sx={{fontSize: "16px", mb: 3}} gutterBottom>
           No tienes productos en venta
         </Typography>
