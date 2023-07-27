@@ -29,7 +29,7 @@ const DetailProduct = () => {
   const getProduct = async (id) => {
     try {
       const data = await fetch(
-        `${import.meta.env.VITE_API_URL}/productos/${id}`
+        `${import.meta.env.VITE_API_URL}/products/${id}`
       );
       const res = await data.json();
       if (res.ok === true) {
