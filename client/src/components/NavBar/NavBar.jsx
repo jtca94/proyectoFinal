@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
@@ -12,7 +11,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import {NavLink, Link} from "react-router-dom";
 import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
@@ -21,6 +19,7 @@ import {AuthContext} from "../../context/AuthContext";
 import {CartContext} from "../../context/CartContext";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import logo from "../../images/logo3.png";
+import logoDrawer from "../../images/logo4.png";
 import {Badge} from "@mui/material";
 
 const drawerWidth = 240;
@@ -48,15 +47,15 @@ function NavBar(props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{textAlign: "center"}}>
-      <VideogameAssetIcon sx={{mt: 3}} fontSize="large" />
-      <Typography variant="h6" sx={{my: 2}}>
-        LA TIENDITA
-      </Typography>
-      <Divider />
+      <Box
+        component="img"
+        src={logoDrawer}
+        alt="logo"
+        sx={{width: "100%", py: 2, backgroundColor: "#2c2c2c"}}
+      />
       <List>
         {user ? (
           <>
-            {" "}
             {navItemsLogged.map((item) => (
               <ListItem key={item.name}>
                 <ListItemButton>

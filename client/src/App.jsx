@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import DetailProduct from "./pages/Productos/DetailProduct";
 import {useContext} from "react";
 import {AuthContext} from "./context/AuthContext";
+import ScrollToTop from "./helpers/ScrollToTop";
 import NotFound from "./pages/404/404";
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
   return (
     <>
       <NavBar />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Inicio />} />
         <Route path="/contacto" element={<Contacto />} />
