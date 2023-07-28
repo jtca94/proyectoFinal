@@ -2,13 +2,13 @@
 
 ## Integración y despliegue
 
-## Link Deploy Frontend
+### Link Deploy Frontend
 [Deploy Frontend - Netlify](https://glistening-bavarois-1590e9.netlify.app)
 
-## Link Deploy Backend
+### Link Deploy Backend
 [Deploy Backend Node - Render](https://node-pixelplay.onrender.com)
 
-## Instrucciones para revision
+## Instrucciones para desplegar el proyecto en modo de desarrollo
 
 ### 1. Crear la `base de datos` con la siguiente información
 
