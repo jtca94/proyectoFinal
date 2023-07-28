@@ -10,10 +10,7 @@ export const ProductsProvider = ({children}) => {
   const [sortedProducts, setSortedProducts] = useState(products);
 
   useEffect(() => {
-    setTimeout(() => {
       getProducts();
-    }
-    , 3000);
   }, []);
 
   const getProducts = async () => {

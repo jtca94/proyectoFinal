@@ -18,6 +18,7 @@ const UserArticles = ({name, price, image, category, stock, id}) => {
   const [open, setOpen] = useState(false);
 
   const handleDelete = async (ProductId) => {
+    console.log(ProductId)
     try {
       const res = await fetch(
         `${import.meta.env.VITE_API_URL}/products/${ProductId}`,
