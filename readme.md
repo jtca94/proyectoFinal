@@ -1,5 +1,13 @@
 # APP tiende de e-commerce
 
+## Integración y despliegue
+
+## Link Deploy Frontend
+[Deploy Frontend - Netlify](https://glistening-bavarois-1590e9.netlify.app)
+
+## Link Deploy Backend
+[Deploy Backend Node - Render](https://node-pixelplay.onrender.com)
+
 ## Instrucciones para revision
 
 ### 1. Crear la `base de datos` con la siguiente información
