@@ -2,6 +2,7 @@ import {
   Box,
   Container,
   Divider,
+  Fade,
   Grid,
   Pagination,
   Typography,
@@ -41,6 +42,7 @@ const Article = () => {
           }}
         />
         {paginatedArticles.map(({id, img, title, body}) => (
+          <Fade in={true} key={id}>
           <Box key={id}>
             <Grid container justifyContent="center" spacing={5} sx={{mb: 5}}>
               <Grid item xs={12} sm={12} md={6} sx={{my: "auto"}}>
@@ -89,6 +91,7 @@ const Article = () => {
               }}
             />
           </Box>
+            </Fade>
         ))}
         <Pagination
           count={Math.ceil(Articulos.length / 2)}

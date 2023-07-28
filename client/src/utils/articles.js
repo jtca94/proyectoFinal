@@ -44,7 +44,7 @@ export const Articulos = [
     {
       id: 7,
       img: "https://www.insiderintelligence.com/static/5ecb856d09def78da57ec3fac2f6ce5c/7fa24/blockchain.jpg",
-      title: "La industria de los videojuegos adopta la tecnología blockchain para transacciones dentro del juego",
+      title: "La industria de los videojuegos adopta la tecnología blockchain",
       body:
         "Varios desarrolladores y editores de juegos están adoptando la tecnología blockchain para mejorar las transacciones dentro del juego y la propiedad de elementos virtuales. Al utilizar la tecnología blockchain, los jugadores pueden comprar, vender e intercambiar activos dentro del juego de manera segura, brindando un nuevo nivel de transparencia y seguridad al ecosistema de los videojuegos.",
     },

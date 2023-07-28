@@ -3,9 +3,10 @@ import {Splide, SplideSlide} from "@splidejs/react-splide";
 import {useContext} from "react";
 import {ProductsContext} from "../../context/ProductsContext";
 import CardHome from "./Card";
+import LinearLoad from "../../utils/LinearLoad";
 
 export const ProductsSlide = () => {
-  const {products} = useContext(ProductsContext);
+  const {products, loading} = useContext(ProductsContext);
   return (
     <Container align="center" maxWidth="false" sx={{my: 3, py:3}}>
       <Typography
@@ -22,6 +23,7 @@ export const ProductsSlide = () => {
       >
         Productos destacados
       </Typography>
+      {loading && <LinearLoad />}
       <Splide
         options={{
           clickable: true,

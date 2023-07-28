@@ -30,6 +30,9 @@ export const theme = createTheme({
     error: {
       main: "#ff0000",
     },
+    info: {
+      main: "#fff",
+    },
   },
   typography: {
     fontFamily: "Space Grotesk, sans-serif",

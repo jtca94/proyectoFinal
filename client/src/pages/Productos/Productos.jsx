@@ -4,6 +4,7 @@ import {
   Container,
   Divider,
   Grid,
+  Grow,
   Pagination,
   ToggleButton,
   ToggleButtonGroup,
@@ -101,7 +102,7 @@ const Productos = () => {
             />
             <Box sx={{my: 3, display: "flex", justifyContent: "center"}}>
               <ToggleButtonGroup
-                color="primary"
+                color="info"
                 sx={{mt: 2}}
                 aria-label="text formatting"
                 value={alignment}
@@ -156,23 +157,23 @@ const Productos = () => {
                 </ToggleButton>
               </ToggleButtonGroup>
             </Box>
-
             <Grid container justifyContent="center" spacing={2} sx={{my: 3}}>
               {currentPage.map((product) => (
-                <Grid item xs={12} sm={6} md={4} key={product.id}>
-                  <CardProducts
-                    image={product.image}
-                    name={product.name}
-                    stock={product.stock}
-                    category={product.category}
-                    description={product.description}
-                    price={product.price}
-                    to={product.id}
-                  />
-                </Grid>
+                <Grow in={true} key={product.id}>
+                  <Grid item xs={12} sm={6} md={4} lg={3}>
+                    <CardProducts
+                      image={product.image}
+                      name={product.name}
+                      stock={product.stock}
+                      category={product.category}
+                      description={product.description}
+                      price={product.price}
+                      to={product.id}
+                    />
+                  </Grid>
+                </Grow>
               ))}
             </Grid>
-
             <Grid container justifyContent="center">
               <Pagination
                 onChange={handleChange}

@@ -108,7 +108,6 @@ const CardProducts = (props) => {
                   flexGrow: 1,
                 }}
               />
-
               <Typography
                 variant="h4"
                 fontWeight="bold"
