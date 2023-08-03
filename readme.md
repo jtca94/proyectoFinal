@@ -156,8 +156,6 @@ password: 123123123
 - /dashboard/products/mycart
 - /*
 
-<!-- escribir de forma cool desarrollado por: con los integrantes -->
-
 ## Desarrollado por: Jose Cannobbio y Johhan Urrutia 🚀 
 
 
