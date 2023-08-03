@@ -60,6 +60,7 @@ const Productos = () => {
 
   const handleChange = (event, value) => {
     setPage(value);
+    window.scrollTo(0, 0);
   };
   const startIndex = (page - 1) * 9;
   const endIndex = page * 9;

@@ -15,6 +15,9 @@ const Article = () => {
   const [page, setPage] = useState(1);
   const handleChange = (event, value) => {
     setPage(value);
+    // scroll not to top, just a bit
+    window.scrollBy(0, -1000);
+
   };
   const startIndex = (page - 1) * 2;
   const endIndex = page * 2;
