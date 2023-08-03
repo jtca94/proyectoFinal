@@ -22,7 +22,7 @@ export const Articulos = [
     },
     {
       id: 4,
-      img: "https://generacionxbox.com/wp-content/uploads/2020/11/xCloud-940x529.jpg.webp",
+      img: "https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2021/06/xbox-cloud-gaming-2381721.jpg?tf=3840x",
       title: "Xbox Cloud Gaming se expande a nuevas regiones",
       body:
         "El servicio de Xbox Cloud Gaming de Microsoft, anteriormente disponible en regiones seleccionadas, se ha expandido a varios países nuevos, incluyendo mercados importantes en Asia y Sudamérica. Esta expansión permite a los suscriptores de Xbox Game Pass Ultimate disfrutar de juegos basados en la nube en una amplia gama de dispositivos, lo que hace que los videojuegos sean más accesibles para jugadores de todo el mundo.",
