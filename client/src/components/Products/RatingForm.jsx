@@ -17,6 +17,7 @@ import {ratingValidationSchema} from "../../helpers/validationSchemas";
 // React
 import {useState} from "react";
 import {useContext} from "react";
+import {useNavigate} from "react-router-dom";
 // Context
 import {AuthContext} from "../../context/AuthContext";
 // PropTypes
@@ -24,7 +25,7 @@ import PropTypes from "prop-types";
 
 const RatingForm = ({productId}) => {
   const {userName, token} = useContext(AuthContext);
-
+  const navigate = useNavigate();
   const [rating, setRating] = useState(0);
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
@@ -55,7 +56,9 @@ const RatingForm = ({productId}) => {
           setOpen(true);
           formik.resetForm();
           setRating(0);
-          window.location.reload();
+          setTimeout(() => {
+            navigate(`/products/${productId}`);
+          }, 2000);
         } else {
           throw new Error(data.message);
         }

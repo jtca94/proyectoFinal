@@ -15,7 +15,6 @@ const Article = () => {
   const [page, setPage] = useState(1);
   const handleChange = (event, value) => {
     setPage(value);
-    // scroll not to top, just a bit
     window.scrollBy(0, -400);
 
   };
